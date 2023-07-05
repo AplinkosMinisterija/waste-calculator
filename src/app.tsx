@@ -277,7 +277,7 @@ const DocumentPdf = ({ data }: { data: Waste }) => {
       <RenderWastePage
         renderTitle={
           <>
-            <Text style={styles.mainTitle}>{formLabels.mainTitle}</Text>
+            <Text style={styles.mainTitle}>{formLabels.formMainTitle}</Text>
             <Text style={styles.date}>{formatDateAndTime(new Date())}</Text>
             <Text style={styles.selectedDate}>
               Pasirinkti skaičiavimai metams: {data.year}
@@ -502,6 +502,7 @@ const WasteForm = () => {
 
     return (
       <StyledForm>
+        <Title>{formLabels.mainTitle}</Title>
         <InnerContainer>
           <ButtonContainer>
             <StyledButton type="button">
@@ -726,7 +727,12 @@ const Row = styled.div`
   grid-template-columns: repeat(1, 1fr);
 `;
 
-const NameContainer = styled.div`
+const Title = styled.h1`
+  font-weight: bold;
+  font-size: 3.2rem;
+`;
+
+const NameContainer = styled.p`
   display: flex;
   flex-direction: column;
   margin-top: 16px;
@@ -794,7 +800,7 @@ const TabsContainer = styled.div`
   margin-top: 24px;
 `;
 
-const Description = styled.div`
+const Description = styled.p`
   margin-top: 6px;
   font-size: 1.3rem;
   color: #697586;

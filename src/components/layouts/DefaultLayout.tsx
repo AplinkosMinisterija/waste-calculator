@@ -20,7 +20,7 @@ const Container = styled.div`
   height: 100%;
   background-color: white;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: auto;
   @media ${device.mobileL} {
     overflow-y: auto;
   }
@@ -28,9 +28,9 @@ const Container = styled.div`
 
 const Content = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 
   @media ${device.mobileL} {
     padding: 20px 16px;

@@ -56,6 +56,7 @@ export const descriptions = {
 
 export const formLabels = {
   mainTitle: "ĮMONĖS PRIEVOLIŲ ĮVYKDYMO UŽTIKRINIMO SUMOS APSKAIČIAVIMAS",
+  formMainTitle: "ĮMONĖS PRIEVOLIŲ ĮVYKDYMO UŽTIKRINIMO SUMOS APSKAIČIAVIMAS",
   infoAboutCompany: "Duomenys apie įmonę",
   tableNotDangerous:
     "1 lentelė. Įmonės prievolių įvykdymo užtikrinimo suma nepavojingosioms atliekoms",
