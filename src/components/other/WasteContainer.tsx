@@ -18,13 +18,15 @@ import Popup from "./Popup";
 const WasteContainer = ({
   values,
   labels,
-  type,
+  wasteType,
+  formType,
   name,
   title,
   sum,
   yearCoeffiCient
 }) => {
-  const isWasteFormType = values?.type === "waste";
+  const isWasteFormType = formType === "waste";
+
   const [showModal, setShowModal] = useState(false);
   const [current, setCurrent] = useState<any>({});
   const arrayHelperRef = useRef<any>(null);
@@ -134,7 +136,7 @@ const WasteContainer = ({
                 >
                   {({ values, errors, setFieldValue, handleSubmit }) => {
                     const streams = stream.filter((item) =>
-                      isEqual(item.type, type)
+                      isEqual(item.type, wasteType)
                     );
 
                     const coefficient = getCoefficient(
@@ -149,7 +151,7 @@ const WasteContainer = ({
                     );
 
                     const wastes = waste.filter((item) =>
-                      isEqual(item.type, type)
+                      isEqual(item.type, wasteType)
                     );
 
                     const handleSetWasteCode = (wasteCode) => {
@@ -160,7 +162,8 @@ const WasteContainer = ({
 
                       const stream = streams.find(
                         (item) =>
-                          item.type === type && item.id === wasteCode.streamId
+                          item.type === wasteType &&
+                          item.id === wasteCode.streamId
                       );
 
                       setFieldValue(`streamCode`, stream);
