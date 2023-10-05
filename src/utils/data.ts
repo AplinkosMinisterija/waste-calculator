@@ -392,7 +392,7 @@ export const stream = [
     S: 1,
     type: "DANGEROUS"
   },
-  { id: "TS-28 ", R: 1, D: 1, S: 1, type: "DANGEROUS" },
+  { id: "TS-28", R: 1, D: 1, S: 1, type: "DANGEROUS" },
   {
     id: "TS-29 (visiems, išskyrus 04 02 19*, 05 01 02*, 05 01 09*, 06 05 02*, 07 01 11*, 07 02 11*, 07 03 11*, 07 04 11*, 07 05 11*, 07 06 11*, 07 07 11*, 10 01 20*, 10 01 22*, 11 01 09*, 17 05 05*, 19 08 11*,  19 08 13*, 19 13 03*, 19 13 05*)",
     R: 1,
@@ -1327,7 +1327,7 @@ export const waste = [
   { streamId: "TS-07", id: "18 01 03", type: "DANGEROUS" },
   { streamId: "TS-07", id: "18 02 02", type: "DANGEROUS" },
   {
-    streamId: "TS-08 (taikoma visiems šio srauto atliekų kodams) ",
+    streamId: "TS-08 (taikoma visiems šio srauto atliekų kodams)",
     id: "07 05 01",
     type: "DANGEROUS"
   },
