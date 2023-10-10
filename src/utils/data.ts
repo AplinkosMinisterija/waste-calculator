@@ -2038,7 +2038,12 @@ export const waste = [
     id: "01 03 10",
     type: "DANGEROUS"
   },
-  { streamId: "TS-31", id: "01 04 07", type: "DANGEROUS" },
+  {
+    streamId:
+      "TS-31 (visiems, išskyrus 03 01 04*, 17 01 06*, 17 02 04*, 17 04 10*, 17 05 03*, 17 09 03*, 19 02 04*, 19 12 11*)",
+    id: "01 04 07",
+    type: "DANGEROUS"
+  },
   { streamId: "TS-31 (03 01 04*)", id: "03 01 04", type: "DANGEROUS" },
   {
     streamId:
