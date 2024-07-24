@@ -36,15 +36,6 @@ export const getSum = (coefficient, quantity, yearCoefficient) => {
   return product > 0 ? roundNumber(product) : 0;
 };
 
-export const getDumpSum = (yearCoefficient, quantity, delay) => {
-  const canCalculate = yearCoefficient && quantity && delay;
-
-  if (!canCalculate) return "";
-
-  const product = yearCoefficient * quantity - delay;
-  return product > 0 ? roundNumber(product) : 0;
-};
-
 export const getCoefficient = (code, streamCode) => {
   if (code && streamCode) return streamCode[code];
 
@@ -65,10 +56,43 @@ export const getTotalSum = (data, yearCof) =>
     ) || 0
   );
 
+export const getDumpInertSum = (yearCoefficient, quantity, setAside) => {
+  const canCalculate = yearCoefficient && quantity && setAside;
+
+  if (!canCalculate) return "";
+
+  const product = yearCoefficient * quantity - setAside;
+  return product > 0 ? roundNumber(product) : 0;
+};
+
+export const getDumpInertTotalSum = (data, yearCof) =>
+  roundNumber(
+    data?.reduce((sum, current) => {
+      return (
+        sum + getDumpInertSum(yearCof, current?.quantity, current?.setAside)
+      );
+    }, 0) || 0
+  );
+
+export const getDumpSum = (yearCoefficient, quantity, setAside = 0) => {
+  const canCalculate = yearCoefficient && quantity;
+
+  if (!canCalculate) return "";
+
+  const product =
+    yearCoefficient.s1 * quantity.s1 +
+    yearCoefficient.s2 * quantity.s2 -
+    setAside;
+
+  return product > 0 ? roundNumber(product) : 0;
+};
+
 export const getDumpTotalSum = (data, yearCof) =>
   roundNumber(
     data?.reduce((sum, current) => {
-      return sum + getDumpSum(yearCof, current?.quantity, current?.delay);
+      return (
+        sum + getDumpSum(yearCof, current?.quantity, current?.setAside || 0)
+      );
     }, 0) || 0
   );
 

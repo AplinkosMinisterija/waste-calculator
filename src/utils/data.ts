@@ -11,24 +11,60 @@ export const yearData = [
   { year: 2025, coefficient: 304.43, type: "DANGEROUS" },
   { year: 2026, coefficient: 311.16, type: "DANGEROUS" },
   { year: 2027, coefficient: 311.16, type: "DANGEROUS" },
-  { year: 2022, coefficient: 2.88, type: "DUMP_NOT_DANGEROUS" },
-  { year: 2023, coefficient: 2.88, type: "DUMP_NOT_DANGEROUS" },
-  { year: 2024, coefficient: 2.95, type: "DUMP_NOT_DANGEROUS" },
-  { year: 2025, coefficient: 2.95, type: "DUMP_NOT_DANGEROUS" },
-  { year: 2026, coefficient: 3.02, type: "DUMP_NOT_DANGEROUS" },
-  { year: 2027, coefficient: 3.02, type: "DUMP_NOT_DANGEROUS" },
-  { year: 2022, coefficient: 8.44, type: "DUMP_DANGEROUS" },
-  { year: 2023, coefficient: 8.44, type: "DUMP_DANGEROUS" },
-  { year: 2024, coefficient: 8.65, type: "DUMP_DANGEROUS" },
-  { year: 2025, coefficient: 8.65, type: "DUMP_DANGEROUS" },
-  { year: 2026, coefficient: 8.87, type: "DUMP_DANGEROUS" },
-  { year: 2027, coefficient: 8.87, type: "DUMP_DANGEROUS" },
+  { year: 2022, coefficient: { s1: 2.88 }, type: "DUMP_NOT_DANGEROUS" },
+  { year: 2023, coefficient: { s1: 2.88 }, type: "DUMP_NOT_DANGEROUS" },
+  {
+    year: 2024,
+    coefficient: { s1: 2.95, s2: 0.74 },
+    type: "DUMP_NOT_DANGEROUS"
+  },
+  {
+    year: 2025,
+    coefficient: { s1: 2.95, s2: 0.74 },
+    type: "DUMP_NOT_DANGEROUS"
+  },
+  {
+    year: 2026,
+    coefficient: { s1: 3.02, s2: 0.76 },
+    type: "DUMP_NOT_DANGEROUS"
+  },
+  {
+    year: 2027,
+    coefficient: { s1: 3.02, s2: 0.76 },
+    type: "DUMP_NOT_DANGEROUS"
+  },
+  { year: 2022, coefficient: { s1: 8.44 }, type: "DUMP_DANGEROUS" },
+  { year: 2023, coefficient: { s1: 8.44 }, type: "DUMP_DANGEROUS" },
+  { year: 2024, coefficient: { s1: 8.65, s2: 2.1 }, type: "DUMP_DANGEROUS" },
+  { year: 2025, coefficient: { s1: 8.65, s2: 2.1 }, type: "DUMP_DANGEROUS" },
+  { year: 2026, coefficient: { s1: 8.87, s2: 2.15 }, type: "DUMP_DANGEROUS" },
+  { year: 2027, coefficient: { s1: 8.87, s2: 2.15 }, type: "DUMP_DANGEROUS" },
   { year: 2022, coefficient: 0.72, type: "DUMP_INERT" },
   { year: 2023, coefficient: 0.72, type: "DUMP_INERT" },
   { year: 2024, coefficient: 0.74, type: "DUMP_INERT" },
   { year: 2025, coefficient: 0.74, type: "DUMP_INERT" },
   { year: 2026, coefficient: 0.76, type: "DUMP_INERT" },
-  { year: 2027, coefficient: 0.76, type: "DUMP_INERT" }
+  { year: 2027, coefficient: 0.76, type: "DUMP_INERT" },
+  {
+    year: 2024,
+    coefficient: { s1: 0.162, s2: 0.001 },
+    type: "DUMP_PHOSPHOGYPSUM"
+  },
+  {
+    year: 2025,
+    coefficient: { s1: 0.162, s2: 0.001 },
+    type: "DUMP_PHOSPHOGYPSUM"
+  },
+  {
+    year: 2026,
+    coefficient: { s1: 0.165, s2: 0.001 },
+    type: "DUMP_PHOSPHOGYPSUM"
+  },
+  {
+    year: 2027,
+    coefficient: { s1: 0.165, s2: 0.001 },
+    type: "DUMP_PHOSPHOGYPSUM"
+  }
 ];
 
 export const stream = [

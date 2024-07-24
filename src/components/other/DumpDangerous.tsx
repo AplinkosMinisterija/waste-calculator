@@ -3,7 +3,12 @@ import { isEmpty } from "lodash";
 import { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { getDumpSum } from "../../utils/functions";
-import { bottomLabels, buttonsTitles, inputLabels } from "../../utils/texts";
+import {
+  bottomLabels,
+  buttonsTitles,
+  formLabels,
+  inputLabels
+} from "../../utils/texts";
 import { validateDump } from "../../utils/validation";
 import Button from "../buttons/Button";
 import SimpleButton from "../buttons/SimpleButton";
@@ -13,28 +18,23 @@ import TextField from "../fields/TextField";
 import Icon from "./Icons";
 import Popup from "./Popup";
 
-const DumpWasteContainer = ({
-  values,
-  name,
-  title,
-  label,
-  sum,
-  yearCoeffCient
-}) => {
+const DumpDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
   const [showModal, setShowModal] = useState(false);
   const [current, setCurrent] = useState<any>({});
   const arrayHelperRef = useRef<any>(null);
 
   const data = useMemo(() => {
     return values?.map((value, index) => {
-      const sum = getDumpSum(yearCoeffCient, value?.quantity, value?.delay);
+      const sum = getDumpSum(yearCoeffCient, value?.quantity, value?.setAside);
 
       return (
         <TableRow>
           <Cell>{index + 1}</Cell>
-          <Cell>{value?.quantity}</Cell>
-          <Cell>{yearCoeffCient}</Cell>
-          <Cell>{value?.delay}</Cell>
+          <Cell>{value?.quantity?.s1}</Cell>
+          <Cell>{value?.quantity?.s2}</Cell>
+          <Cell>{yearCoeffCient?.s1}</Cell>
+          <Cell>{yearCoeffCient?.s2}</Cell>
+          <Cell>{value?.setAside}</Cell>
           <Cell>{sum}</Cell>
           <Cell>
             <IconsContainer>
@@ -62,14 +62,14 @@ const DumpWasteContainer = ({
   }, [yearCoeffCient, arrayHelperRef, values]);
 
   return (
-    <SimpleContainer title={title}>
+    <SimpleContainer title={formLabels.tableDumpDangerous}>
       <FieldArray
         name={`${name}`}
         render={(arrayHelpers) => {
           arrayHelperRef.current = arrayHelpers;
 
           const handleSubmit = (values) => {
-            const params = { ...values, delay: values.delay || "0" };
+            const params = { ...values, setAside: values.setAside || "0" };
             if (!isEmpty(current)) {
               arrayHelpers.replace(current?.index, params);
             } else {
@@ -85,9 +85,14 @@ const DumpWasteContainer = ({
               <Table>
                 <TableRow>
                   <Cell>Eil nr.</Cell>
-                  <Cell>{inputLabels.quantity}</Cell>
-                  <Cell>{inputLabels.yearCoeffCient}</Cell>
-                  <Cell>{inputLabels.delay}</Cell>
+                  <Cell>
+                    {inputLabels.expectedToBeRemovedDumpDangerousQuantity}
+                  </Cell>
+                  <Cell>{inputLabels.removedDumpDangerousQuantity}</Cell>
+
+                  <Cell>{inputLabels.nk1}</Cell>
+                  <Cell>{inputLabels.nk2}</Cell>
+                  <Cell>{inputLabels.setAside}</Cell>
                   <Cell>{inputLabels.totalSum}</Cell>
                   <Cell></Cell>
                 </TableRow>
@@ -122,34 +127,53 @@ const DumpWasteContainer = ({
                     const sum = getDumpSum(
                       yearCoeffCient,
                       values?.quantity,
-                      values?.delay
+                      values?.setAside
                     );
 
                     return (
                       <InnerContainer>
                         <NumericTextField
-                          label={label}
+                          label={
+                            inputLabels.expectedToBeRemovedDumpDangerousQuantity
+                          }
                           name="quantity"
-                          value={values.quantity}
-                          error={errors?.quantity}
+                          value={values?.quantity?.s1}
+                          error={(errors?.quantity as any)?.s1}
                           onChange={(quantity) =>
-                            setFieldValue(`quantity`, quantity)
+                            setFieldValue(`quantity.s1`, quantity)
                           }
                         />
-
+                        <NumericTextField
+                          label={inputLabels.removedDumpDangerousQuantity}
+                          name="quantity"
+                          value={values?.quantity?.s2}
+                          error={(errors?.quantity as any)?.s2}
+                          onChange={(quantity) =>
+                            setFieldValue(`quantity.s2`, quantity)
+                          }
+                        />
                         <StyledTextField
-                          label={inputLabels.yearCoeffCient}
-                          value={yearCoeffCient || ""}
+                          label={inputLabels.nk1}
+                          value={yearCoeffCient?.s1 || ""}
+                          disabled={true}
+                          bottomLabel={bottomLabels.yearCoeffiCient}
+                          onChange={() => {}}
+                        />
+                        <StyledTextField
+                          label={inputLabels.nk2}
+                          value={yearCoeffCient?.s2 || ""}
                           disabled={true}
                           bottomLabel={bottomLabels.yearCoeffiCient}
                           onChange={() => {}}
                         />
                         <NumericTextField
-                          label={inputLabels.delay}
-                          name="delay"
-                          error={errors?.delay}
-                          value={values.delay}
-                          onChange={(delay) => setFieldValue(`delay`, delay)}
+                          label={inputLabels.setAside}
+                          name="setAside"
+                          error={errors?.setAside}
+                          value={values.setAside}
+                          onChange={(setAside) =>
+                            setFieldValue(`setAside`, setAside)
+                          }
                         />
 
                         <StyledTextField
@@ -227,4 +251,4 @@ const IconsContainer = styled.div`
   justify-content: center;
   gap: 20px;
 `;
-export default DumpWasteContainer;
+export default DumpDangerousContainer;

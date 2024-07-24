@@ -31,6 +31,13 @@ export const validateWaste = Yup.object().shape(
   [["streamCode", "wasteCode"]]
 );
 
-export const validateDump = Yup.object().shape({
+export const validateInnertDump = Yup.object().shape({
   quantity: Yup.string().required(validationTexts.requireText)
+});
+
+export const validateDump = Yup.object().shape({
+  quantity: Yup.object().shape({
+    s1: Yup.string().required(validationTexts.requireText),
+    s2: Yup.string().required(validationTexts.requireText)
+  })
 });
