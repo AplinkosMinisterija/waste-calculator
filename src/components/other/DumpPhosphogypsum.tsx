@@ -48,7 +48,7 @@ const DumpPhosphogypsum = ({ values, name, sum, yearCoeffCient }) => {
               <IconContainer
                 onClick={() => {
                   arrayHelperRef?.current &&
-                    arrayHelperRef?.current?.remove(values);
+                  arrayHelperRef?.current?.remove(index);
                 }}
               >
                 <StyledDeleteIcon name="deleteItem" />

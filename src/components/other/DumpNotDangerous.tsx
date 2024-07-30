@@ -49,7 +49,7 @@ const DumpNotDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
               <IconContainer
                 onClick={() => {
                   arrayHelperRef?.current &&
-                    arrayHelperRef?.current?.remove(values);
+                    arrayHelperRef?.current?.remove(index);
                 }}
               >
                 <StyledDeleteIcon name="deleteItem" />
@@ -133,7 +133,7 @@ const DumpNotDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
                       <InnerContainer>
                         <NumericTextField
                           label={
-                            inputLabels.expectedToBeRemovedDumpDangerousQuantity
+                            inputLabels.expectedToBeRemovedDumpNotDangerousQuantity
                           }
                           name="quantity"
                           value={values?.quantity?.s1}
@@ -143,7 +143,7 @@ const DumpNotDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
                           }
                         />
                         <NumericTextField
-                          label={inputLabels.removedDumpDangerousQuantity}
+                          label={inputLabels.removedDumpNotDangerousQuantity}
                           name="quantity"
                           value={values?.quantity?.s2}
                           error={(errors?.quantity as any)?.s2}
@@ -152,14 +152,14 @@ const DumpNotDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
                           }
                         />
                         <StyledTextField
-                          label={inputLabels.nk1}
+                          label={inputLabels.ns1}
                           value={yearCoeffCient?.s1 || ""}
                           disabled={true}
                           bottomLabel={bottomLabels.yearCoeffiCient}
                           onChange={() => {}}
                         />
                         <StyledTextField
-                          label={inputLabels.nk2}
+                          label={inputLabels.ns2}
                           value={yearCoeffCient?.s2 || ""}
                           disabled={true}
                           bottomLabel={bottomLabels.yearCoeffiCient}

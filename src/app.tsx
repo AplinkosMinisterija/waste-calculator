@@ -677,6 +677,23 @@ const WasteForm = () => {
               getOptionLabel={(option) => option?.year || option}
             />
           </ButtonContainer>
+          <SimpleContainer>
+            <div>
+              * - Atliekas naudojančių ar šalinančių įmonių prievolių įvykdymo
+              užtikrinimo sumos vienai tonai numatomų naudoti ar šalinti
+              pavojingųjų ar nepavojingųjų atliekų dydžio nustatymo ir prievolių
+              įvykdymo užtikrinimo sumos apskaičiavimo, atsižvelgiant į numatomų
+              naudoti ar šalinti pavojingųjų ar nepavojingųjų atliekų rūšis,
+              kiekį ir tvarkymo būdus, tvarkos aprašas:{" "}
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href="https://www.e-tar.lt/portal/lt/legalAct/c24a1a301df611edb4cae1b158f98ea5/asr"
+              >
+                https://www.e-tar.lt/portal/lt/legalAct/c24a1a301df611edb4cae1b158f98ea5/asr
+              </a>
+            </div>
+          </SimpleContainer>
           <SimpleContainer title={formLabels.infoAboutCompany}>
             <InputRow>
               <TextField

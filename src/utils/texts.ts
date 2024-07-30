@@ -137,13 +137,13 @@ export const inputLabels = {
   companyName: "Įmonės pavadinimas",
   companyCode: "Įmonės kodas",
   pollutionNumber: "Taršos arba TIPK leidimo Nr.",
-  ns1: "Dydis pagal 1 priedo 3 punktą eurais",
-  ns2: "Dydis pagal 1 priedo 4 punktą eurais",
-  nk1: "Dydis pagal 1 priedo 5 punktą eurais ",
-  nk2: "Dydis pagal 1 priedo 6 punktą eurais",
-  n1: "Dydis pagal 1 priedo 7 punktą eurais",
-  nf1: "Dydis pagal 1 priedo 8 punktą eurais",
-  nf2: "Dydis pagal 1 priedo 9 punktą eurais"
+  ns1: "Dydis pagal Tvarkos aprašo* 1 priedo 3 punktą",
+  ns2: "Dydis pagal Tvarkos aprašo* 1 priedo 4 punktą",
+  nk1: "Dydis pagal Tvarkos aprašo* 1 priedo 5 punktą ",
+  nk2: "Dydis pagal Tvarkos aprašo* 1 priedo 6 punktą",
+  n1: "Dydis pagal Tvarkos aprašo* 1 priedo 7 punktą",
+  nf1: "Dydis pagal Tvarkos aprašo* 1 priedo 8 punktą",
+  nf2: "Dydis pagal Tvarkos aprašo* 1 priedo 9 punktą"
 };
 export const bottomLabels = {
   yearCoeffiCient:
