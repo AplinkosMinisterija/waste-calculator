@@ -679,12 +679,13 @@ const WasteForm = () => {
           </ButtonContainer>
           <SimpleContainer>
             <div>
-              * - Atliekas naudojančių ar šalinančių įmonių prievolių įvykdymo
-              užtikrinimo sumos vienai tonai numatomų naudoti ar šalinti
-              pavojingųjų ar nepavojingųjų atliekų dydžio nustatymo ir prievolių
-              įvykdymo užtikrinimo sumos apskaičiavimo, atsižvelgiant į numatomų
-              naudoti ar šalinti pavojingųjų ar nepavojingųjų atliekų rūšis,
-              kiekį ir tvarkymo būdus, tvarkos aprašas:{" "}
+              Tvarkos aprašas* - Atliekas naudojančių ar šalinančių įmonių
+              prievolių įvykdymo užtikrinimo sumos vienai tonai numatomų naudoti
+              ar šalinti pavojingųjų ar nepavojingųjų atliekų dydžio nustatymo
+              ir prievolių įvykdymo užtikrinimo sumos apskaičiavimo,
+              atsižvelgiant į numatomų naudoti ar šalinti pavojingųjų ar
+              nepavojingųjų atliekų rūšis, kiekį ir tvarkymo būdus, tvarkos
+              aprašas:{" "}
               <a
                 rel="noreferrer"
                 target="_blank"
