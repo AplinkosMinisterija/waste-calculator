@@ -18,7 +18,10 @@ import NumericTextField from "./components/fields/NumericTextField";
 import SelectField from "./components/fields/SelectField";
 import TextField from "./components/fields/TextField";
 import DefaultLayout from "./components/layouts/DefaultLayout";
-import DumpWasteContainer from "./components/other/DumpWasteContainer";
+import DumpDangerousContainer from "./components/other/DumpDangerous";
+import DumpInertContainer from "./components/other/DumpInertContainer";
+import DumpNotDangerousContainer from "./components/other/DumpNotDangerous";
+import DumpPhosphogypsum from "./components/other/DumpPhosphogypsum";
 import LoaderComponent from "./components/other/LoaderComponent";
 import WasteContainer from "./components/other/WasteContainer";
 import { WasteType } from "./utils/constants";
@@ -26,6 +29,7 @@ import { yearData } from "./utils/data";
 import { formatDateAndTime } from "./utils/format";
 import {
   getCoefficient,
+  getDumpInertSum,
   getDumpSum,
   getSum,
   roundNumber
@@ -80,18 +84,20 @@ export interface Waste {
   }[];
   dumpNotDangerous?: {
     quantity?: string;
-    delay?: string;
+    setAside?: string;
   }[];
   dumpDangerous?: {
     quantity?: string;
-    delay?: string;
+    setAside?: string;
   }[];
   dumpInert?: {
     quantity?: string;
-    delay?: string;
+    setAside?: string;
+  }[];
+  phosphogypsum?: {
+    quantity?: string;
   }[];
 }
-
 Font.register({
   family: "Roboto",
   fonts: [
@@ -224,26 +230,144 @@ const RenderWastePage = ({
   );
 };
 
-const RenderDumpWastePage = ({ wastes, sum, label, title, yearCof }) => {
+const RenderInertWastePage = ({ wastes, sum, yearCof }) => {
   return (
     <Page orientation="landscape" size="A4" style={styles.page}>
-      <Text style={styles.title}>{title}.</Text>
+      <Text style={styles.title}>{formLabels.tableDumpInert}.</Text>
       <View style={styles.table}>
         <View style={[styles.tableRow]}>
           <Text style={styles.cell}> Eil nr.</Text>
-          <Text style={styles.cell}>{label}</Text>
+          <Text style={styles.cell}>{inputLabels.dumpInertQuantity}</Text>
           <Text style={styles.cell}>{inputLabels.yearCoeffCient}</Text>
-          <Text style={styles.cell}>{inputLabels.delay}</Text>
+          <Text style={styles.cell}>{inputLabels.setAside}</Text>
           <Text style={styles.cell}>{inputLabels.totalSum}</Text>
         </View>
         {wastes?.map((row, i) => {
-          const sum = getDumpSum(yearCof, row?.quantity, row?.delay);
+          const sum = getDumpInertSum(yearCof, row?.quantity, row?.setAside);
           return (
             <View key={i} style={styles.tableRow}>
               <Text style={styles.cell}>{i + 1}</Text>
               <Text style={styles.cell}>{row?.quantity}</Text>
               <Text style={styles.cell}>{yearCof}</Text>
-              <Text style={styles.cell}>{row?.delay}</Text>
+              <Text style={styles.cell}>{row?.setAside}</Text>
+              <Text style={styles.cell}>{sum}</Text>
+            </View>
+          );
+        })}
+        <View style={styles.tableRow}>
+          <Text style={styles.totalCell}>Iš viso: {sum}</Text>
+        </View>
+      </View>
+    </Page>
+  );
+};
+
+const RenderDangerousWastePage = ({ wastes, sum, yearCof }) => {
+  return (
+    <Page orientation="landscape" size="A4" style={styles.page}>
+      <Text style={styles.title}>{formLabels.tableDangerous}.</Text>
+      <View style={styles.table}>
+        <View style={[styles.tableRow]}>
+          <Text style={styles.cell}> Eil nr.</Text>
+          <Text style={styles.cell}>
+            {inputLabels.expectedToBeRemovedDumpDangerousQuantity}
+          </Text>
+          <Text style={styles.cell}>
+            {inputLabels.removedDumpDangerousQuantity}
+          </Text>
+          <Text style={styles.cell}>{inputLabels.nk1}</Text>
+          <Text style={styles.cell}>{inputLabels.nk2}</Text>
+          <Text style={styles.cell}>{inputLabels.setAside}</Text>
+          <Text style={styles.cell}>{inputLabels.totalSum}</Text>
+        </View>
+        {wastes?.map((row, i) => {
+          const sum = getDumpSum(yearCof, row?.quantity, row?.setAside);
+          return (
+            <View key={i} style={styles.tableRow}>
+              <Text style={styles.cell}>{i + 1}</Text>
+              <Text style={styles.cell}>{row?.quantity.s1}</Text>
+              <Text style={styles.cell}>{row?.quantity.s2}</Text>
+              <Text style={styles.cell}>{yearCof.s1}</Text>
+              <Text style={styles.cell}>{yearCof.s2}</Text>
+              <Text style={styles.cell}>{row?.setAside}</Text>
+              <Text style={styles.cell}>{sum}</Text>
+            </View>
+          );
+        })}
+        <View style={styles.tableRow}>
+          <Text style={styles.totalCell}>Iš viso: {sum}</Text>
+        </View>
+      </View>
+    </Page>
+  );
+};
+
+const RenderPhosphogypsumWastePage = ({ wastes, sum, yearCof }) => {
+  return (
+    <Page orientation="landscape" size="A4" style={styles.page}>
+      <Text style={styles.title}>{formLabels.tablePhosphosGypsum}.</Text>
+      <View style={styles.table}>
+        <View style={[styles.tableRow]}>
+          <Text style={styles.cell}> Eil nr.</Text>
+          <Text style={styles.cell}>
+            {inputLabels.expectedToBeRemovedDumpPhosphogypsumQuantity}
+          </Text>
+          <Text style={styles.cell}>
+            {inputLabels.removedDumpPhosphogypsumQuantity}
+          </Text>
+          <Text style={styles.cell}>{inputLabels.nf1}</Text>
+          <Text style={styles.cell}>{inputLabels.nf2}</Text>
+          <Text style={styles.cell}>{inputLabels.totalSum}</Text>
+        </View>
+        {wastes?.map((row, i) => {
+          const sum = getDumpSum(yearCof, row?.quantity, 0);
+          return (
+            <View key={i} style={styles.tableRow}>
+              <Text style={styles.cell}>{i + 1}</Text>
+              <Text style={styles.cell}>{row?.quantity.s1}</Text>
+              <Text style={styles.cell}>{row?.quantity.s2}</Text>
+              <Text style={styles.cell}>{yearCof.s1}</Text>
+              <Text style={styles.cell}>{yearCof.s2}</Text>
+              <Text style={styles.cell}>{sum}</Text>
+            </View>
+          );
+        })}
+        <View style={styles.tableRow}>
+          <Text style={styles.totalCell}>Iš viso: {sum}</Text>
+        </View>
+      </View>
+    </Page>
+  );
+};
+
+const RenderNotDangerousWastePage = ({ wastes, sum, yearCof }) => {
+  return (
+    <Page orientation="landscape" size="A4" style={styles.page}>
+      <Text style={styles.title}>{formLabels.tableDumpNotDangerous}.</Text>
+      <View style={styles.table}>
+        <View style={[styles.tableRow]}>
+          <Text style={styles.cell}> Eil nr.</Text>
+          <Text style={styles.cell}>
+            {inputLabels.expectedToBeRemovedDumpNotDangerousQuantity}
+          </Text>
+          <Text style={styles.cell}>
+            {inputLabels.removedDumpNotDangerousQuantity}
+          </Text>
+          <Text style={styles.cell}>{inputLabels.ns1}</Text>
+          <Text style={styles.cell}>{inputLabels.ns2}</Text>
+          <Text style={styles.cell}>{inputLabels.setAside}</Text>
+          <Text style={styles.cell}>{inputLabels.totalSum}</Text>
+        </View>
+        {wastes?.map((row, i) => {
+          const sum = getDumpSum(yearCof, row?.quantity, row?.setAside);
+          return (
+            <View key={i} style={styles.tableRow}>
+              <Text style={styles.cell}>{i + 1}</Text>
+              <Text style={styles.cell}>{row?.quantity.s1}</Text>
+              <Text style={styles.cell}>{row?.quantity.s2}</Text>
+              <Text style={styles.cell}>{yearCof.s1}</Text>
+              <Text style={styles.cell}>{yearCof.s2}</Text>
+              <Text style={styles.cell}>{row?.setAside}</Text>
               <Text style={styles.cell}>{sum}</Text>
             </View>
           );
@@ -269,7 +393,9 @@ const DocumentPdf = ({ data }: { data: Waste }) => {
     dumpInertSumYearDataCof,
     dumpInertSum,
     totalSum,
-    maxSum
+    maxSum,
+    dumpPhosphogypsumSumYearDataCof,
+    dumpPhosphogypsumSum
   } = useData(data);
 
   return (
@@ -297,26 +423,25 @@ const DocumentPdf = ({ data }: { data: Waste }) => {
         sum={dangerousSum}
         labels={dangerousLabels}
       />
-      <RenderDumpWastePage
+      <RenderNotDangerousWastePage
         wastes={data.dumpNotDangerous}
         sum={dumpNotDangerousSum}
         yearCof={dumpNotDangerousSumYearDataCof}
-        label={inputLabels.dumpNotDangerousQuantity}
-        title={formLabels.tableDumpNotDangerous}
       />
-      <RenderDumpWastePage
+      <RenderDangerousWastePage
         wastes={data.dumpDangerous}
         sum={dumpDangerousSum}
         yearCof={dumpDangerousSumYearDataCof}
-        label={inputLabels.dumpDangerousQuantity}
-        title={formLabels.tableDumpDangerous}
       />
-      <RenderDumpWastePage
+      <RenderInertWastePage
         wastes={data.dumpInert}
         sum={dumpInertSum}
         yearCof={dumpInertSumYearDataCof}
-        label={inputLabels.dumpInertQuantity}
-        title={formLabels.tableDumpInert}
+      />
+      <RenderPhosphogypsumWastePage
+        wastes={data.phosphogypsum}
+        sum={dumpPhosphogypsumSum}
+        yearCof={dumpPhosphogypsumSumYearDataCof}
       />
       <Page orientation="landscape" size="A4" style={styles.page}>
         <Text style={styles.title}>{formLabels.totalSum}</Text>
@@ -328,6 +453,7 @@ const DocumentPdf = ({ data }: { data: Waste }) => {
             <Text style={styles.cell}>{formLabels.dumpNotDangerous}</Text>
             <Text style={styles.cell}>{formLabels.dumpDangerous}</Text>
             <Text style={styles.cell}>{formLabels.dumpInert}</Text>
+            <Text style={styles.cell}>{formLabels.phosphosGypsum}</Text>
             <Text style={styles.cell}>{inputLabels.totalSum}</Text>
             <Text style={styles.cell}>{inputLabels.maxTotalSum}</Text>
           </View>
@@ -339,6 +465,7 @@ const DocumentPdf = ({ data }: { data: Waste }) => {
             <Text style={styles.cell}>{dumpNotDangerousSum}</Text>
             <Text style={styles.cell}>{dumpDangerousSum}</Text>
             <Text style={styles.cell}>{dumpInertSum}</Text>
+            <Text style={styles.cell}>{dumpPhosphogypsumSum}</Text>
             <Text style={styles.cell}>{totalSum}</Text>
             <Text style={styles.cell}>{roundNumber(maxSum)}</Text>
           </View>
@@ -486,7 +613,9 @@ const WasteForm = () => {
       dumpInertSumYearDataCof,
       dumpInertSum,
       totalSum,
-      maxSum
+      maxSum,
+      dumpPhosphogypsumSum,
+      dumpPhosphogypsumSumYearDataCof
     } = useData(values);
 
     const handleSelectTab = (tab) => {
@@ -548,6 +677,24 @@ const WasteForm = () => {
               getOptionLabel={(option) => option?.year || option}
             />
           </ButtonContainer>
+          <SimpleContainer>
+            <div>
+              Tvarkos aprašas* - Atliekas naudojančių ar šalinančių įmonių
+              prievolių įvykdymo užtikrinimo sumos vienai tonai numatomų naudoti
+              ar šalinti pavojingųjų ar nepavojingųjų atliekų dydžio nustatymo
+              ir prievolių įvykdymo užtikrinimo sumos apskaičiavimo,
+              atsižvelgiant į numatomų naudoti ar šalinti pavojingųjų ar
+              nepavojingųjų atliekų rūšis, kiekį ir tvarkymo būdus, tvarkos
+              aprašas:{" "}
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href="https://www.e-tar.lt/portal/lt/legalAct/c24a1a301df611edb4cae1b158f98ea5/asr"
+              >
+                https://www.e-tar.lt/portal/lt/legalAct/c24a1a301df611edb4cae1b158f98ea5/asr
+              </a>
+            </div>
+          </SimpleContainer>
           <SimpleContainer title={formLabels.infoAboutCompany}>
             <InputRow>
               <TextField
@@ -603,29 +750,32 @@ const WasteForm = () => {
                 name={"dangerous"}
                 title={formLabels.tableDangerous}
               />
-              <DumpWasteContainer
+              <DumpNotDangerousContainer
                 values={values.dumpNotDangerous}
                 yearCoeffCient={dumpNotDangerousSumYearDataCof}
                 name={"dumpNotDangerous"}
-                title={formLabels.tableDumpNotDangerous}
-                label={inputLabels.dumpNotDangerousQuantity}
                 sum={dumpNotDangerousSum}
               />
-              <DumpWasteContainer
+              <DumpDangerousContainer
                 values={values.dumpDangerous}
                 yearCoeffCient={dumpDangerousSumYearDataCof}
                 name={"dumpDangerous"}
-                title={formLabels.tableDumpDangerous}
-                label={inputLabels.dumpDangerousQuantity}
                 sum={dumpDangerousSum}
               />
-              <DumpWasteContainer
+              <DumpInertContainer
                 values={values.dumpInert}
                 yearCoeffCient={dumpInertSumYearDataCof}
                 sum={dumpInertSum}
                 name={"dumpInert"}
                 title={formLabels.tableDumpInert}
                 label={inputLabels.dumpInertQuantity}
+              />
+
+              <DumpPhosphogypsum
+                values={values.phosphogypsum}
+                name={"phosphogypsum"}
+                sum={dumpPhosphogypsumSum}
+                yearCoeffCient={dumpPhosphogypsumSumYearDataCof}
               />
 
               <SimpleContainer title={formLabels.totalSum}>
@@ -657,6 +807,13 @@ const WasteForm = () => {
                   <NumericTextField
                     label={formLabels.dumpInert}
                     value={dumpInertSum}
+                    onChange={() => {}}
+                    disabled={true}
+                  />
+
+                  <NumericTextField
+                    label={formLabels.phosphosGypsum}
+                    value={dumpPhosphogypsumSum}
                     onChange={() => {}}
                     disabled={true}
                   />

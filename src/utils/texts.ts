@@ -68,8 +68,9 @@ export const formLabels = {
     "4 lentelė. Įmonės prievolių, susijusių su pavojingų atliekų sąvartynų uždarymo ir priežiūros po uždarymo priemonių įgyvendinimu, įvykdymo užtikrinimo suma",
   tableDumpInert:
     "5 lentelė. Įmonės prievolių įvykdymo užtikrinimo suma inertinių atliekų sąvartynų uždarymo ir priežiūros po uždarymo priemonių įgyvendinimo užtikrinimui",
-  totalSum:
-    "6 lentelė. Bendra įmonės prievolių, susijusių su nepavojingosioms, inertinėms ir pavojingosioms atliekoms, įvykdymo užtikrinimo suma",
+  tablePhosphosGypsum:
+    "6 lentelė. Įmonės prievolių, susijusių su nepavojingųjų atliekų sąvartynų, kuriuose šalinamos fosfogipso atliekos (toliau – fosfogipso atliekų sąvartynai) uždarymo ir priežiūros po uždarymo priemonių įgyvendinimui, įvykdymo užtikrinimo suma",
+  totalSum: "7 lentelė. Bendra įmonės prievolių įvykdymo užtikrinimo suma",
   notDangerous:
     "Įmonės prievolių įvykdymo užtikrinimo suma nepavojingosioms atliekoms",
   dangerous:
@@ -79,7 +80,9 @@ export const formLabels = {
   dumpDangerous:
     "Įmonės prievolių, susijusių su pavojingų atliekų sąvartynų uždarymo ir priežiūros po uždarymo priemonių įgyvendinimu, įvykdymo užtikrinimo suma",
   dumpInert:
-    "Įmonės prievolių įvykdymo užtikrinimo suma inertinių atliekų sąvartynų uždarymo ir priežiūros po uždarymo priemonių įgyvendinimo užtikrinimui"
+    "Įmonės prievolių įvykdymo užtikrinimo suma inertinių atliekų sąvartynų uždarymo ir priežiūros po uždarymo priemonių įgyvendinimo užtikrinimui",
+  phosphosGypsum:
+    "Įmonės prievolių, susijusių su nepavojingųjų atliekų sąvartynų, kuriuose šalinamos fosfogipso atliekos (toliau – fosfogipso atliekų sąvartynai) uždarymo ir priežiūros po uždarymo priemonių įgyvendinimui, įvykdymo užtikrinimo suma"
 };
 
 export const inputLabels = {
@@ -115,15 +118,32 @@ export const inputLabels = {
   maxTotalSum:
     "Didžiausia įsipareigojimų, užtikrinant prievolių įvykdymą maksimaliąja hipoteka, apsaugos suma eurais ",
   quantity: "Atliekų kiekis, tonomis",
-  dumpNotDangerousQuantity: "Nepavojingųjų atliekų kiekio suma tonomis",
-  dumpDangerousQuantity: "Pavojingųjų atliekų kiekio suma tonomis",
+  expectedToBeRemovedDumpNotDangerousQuantity:
+    "Numatomų pašalinti ir pašalintų nepavojingųjų atliekų kiekių neuždarytuose sąvartynuose ar atskirose neuždarytose sąvartyno dalyse suma tonomis",
+  removedDumpNotDangerousQuantity:
+    "Pašalintų nepavojingųjų atliekų kiekių uždarytuose sąvartynuose ar atskirose uždarytose sąvartyno dalyse suma tonomis",
+  expectedToBeRemovedDumpDangerousQuantity:
+    "Numatomų pašalinti ir pašalintų pavojingųjų atliekų kiekių neuždarytuose sąvartynuose ar atskirose neuždarytose sąvartyno dalyse suma tonomis",
+  removedDumpDangerousQuantity:
+    "Pašalintų pavojingųjų atliekų kiekių uždarytuose sąvartynuose ar atskirose uždarytose sąvartyno dalyse suma tonomis",
+  expectedToBeRemovedDumpPhosphogypsumQuantity:
+    "Numatomų pašalinti ir pašalintų fosfogipso atliekų kiekių neuždarytuose sąvartynuose ar atskirose neuždarytose sąvartyno dalyse suma tonomis",
+  removedDumpPhosphogypsumQuantity:
+    "Pašalintų fosfogipso atliekų kiekių uždarytuose sąvartynuose ar atskirose uždarytose sąvartyno dalyse  suma tonomis",
   dumpInertQuantity: "Inertinių atliekų kiekio suma tonomis",
-  delay: "Atidėjimų suma eurais",
+  setAside: "Atidėjimų suma eurais",
   fullName: "Įmonės vadovo parašas, vardas, pavardė",
   company: "Įmonės veiklavietės adresas",
   companyName: "Įmonės pavadinimas",
   companyCode: "Įmonės kodas",
-  pollutionNumber: "Taršos arba TIPK leidimo Nr."
+  pollutionNumber: "Taršos arba TIPK leidimo Nr.",
+  ns1: "Dydis pagal Tvarkos aprašo* 1 priedo 3 punktą",
+  ns2: "Dydis pagal Tvarkos aprašo* 1 priedo 4 punktą",
+  nk1: "Dydis pagal Tvarkos aprašo* 1 priedo 5 punktą ",
+  nk2: "Dydis pagal Tvarkos aprašo* 1 priedo 6 punktą",
+  n1: "Dydis pagal Tvarkos aprašo* 1 priedo 7 punktą",
+  nf1: "Dydis pagal Tvarkos aprašo* 1 priedo 8 punktą",
+  nf2: "Dydis pagal Tvarkos aprašo* 1 priedo 9 punktą"
 };
 export const bottomLabels = {
   yearCoeffiCient:
