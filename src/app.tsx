@@ -265,7 +265,7 @@ const RenderInertWastePage = ({ wastes, sum, yearCof }) => {
 const RenderDangerousWastePage = ({ wastes, sum, yearCof }) => {
   return (
     <Page orientation="landscape" size="A4" style={styles.page}>
-      <Text style={styles.title}>{formLabels.tableDangerous}.</Text>
+      <Text style={styles.title}>{formLabels.tableDumpDangerous}.</Text>
       <View style={styles.table}>
         <View style={[styles.tableRow]}>
           <Text style={styles.cell}> Eil nr.</Text>
