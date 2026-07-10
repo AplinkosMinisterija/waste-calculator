@@ -733,7 +733,7 @@ const WasteForm = () => {
               <WasteContainer
                 values={values.notDangerous}
                 yearCoeffiCient={notDangerousSumYearDataCof}
-                wasteType={"NOT_DANGEROUS"}
+                wasteType={WasteType.NOT_DANGEROUS}
                 formType={values.type}
                 name={"notDangerous"}
                 labels={wasteLabels.notDangerous}
@@ -744,7 +744,7 @@ const WasteForm = () => {
                 values={values.dangerous}
                 formType={values.type}
                 yearCoeffiCient={dangerousSumYearDataCof}
-                wasteType={"DANGEROUS"}
+                wasteType={WasteType.DANGEROUS}
                 labels={wasteLabels.dangerous}
                 sum={dangerousSum}
                 name={"dangerous"}
