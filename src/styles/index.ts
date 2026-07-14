@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 export interface Theme {
   colors: {
     primary: string;
@@ -40,41 +40,41 @@ export interface Theme {
 
 export const theme: Theme = {
   colors: {
-    primary: "#0862AB ",
-    returned: "#FEBC1D",
-    secondary: "#13C9E7",
-    tertiary: "#7A7E9F",
-    danger: "#FE5B78",
-    transparent: "transparent",
-    success: "#4FB922",
-    confirmed: "#4FB922",
-    submitted: "#4FB922",
+    primary: '#0862AB ',
+    returned: '#FEBC1D',
+    secondary: '#13C9E7',
+    tertiary: '#7A7E9F',
+    danger: '#FE5B78',
+    transparent: 'transparent',
+    success: '#4FB922',
+    confirmed: '#4FB922',
+    submitted: '#4FB922',
     hover: {
-      submitted: "#4FB922",
-      confirmed: "#4FB922",
-      success: "#4FB922",
-      returned: "#FEBC1D",
-      primary: "#0862AB ",
-      secondary: "#13C9E78F",
-      tertiary: "#7A7E9F",
-      danger: "#FE5B78E6"
+      submitted: '#4FB922',
+      confirmed: '#4FB922',
+      success: '#4FB922',
+      returned: '#FEBC1D',
+      primary: '#0862AB ',
+      secondary: '#13C9E78F',
+      tertiary: '#7A7E9F',
+      danger: '#FE5B78E6',
     },
-    tertiaryMedium: "#C6C8D6",
-    tertiaryLight: "#F3F3F7",
-    new: "#00cae9",
-    not_finished: "#fea700",
-    finished: "#60b456",
-    late: "#FE5B78",
-    input: "#F3F3F7",
-    border: "#D3D2D2",
-    label: "#231F20",
-    error: "#FE5B78",
-    light: "#f3f3f7",
-    white: "#ffffff",
-    darkerWhite: "#A4A7BD",
-    pending: "#fea700",
-    grey: "#B3B5C4"
-  }
+    tertiaryMedium: '#C6C8D6',
+    tertiaryLight: '#F3F3F7',
+    new: '#00cae9',
+    not_finished: '#fea700',
+    finished: '#60b456',
+    late: '#FE5B78',
+    input: '#F3F3F7',
+    border: '#D3D2D2',
+    label: '#231F20',
+    error: '#FE5B78',
+    light: '#f3f3f7',
+    white: '#ffffff',
+    darkerWhite: '#A4A7BD',
+    pending: '#fea700',
+    grey: '#B3B5C4',
+  },
 };
 
 export const GlobalStyle = createGlobalStyle`
@@ -134,5 +134,5 @@ export const device = {
   mobileL: `(max-width: 788px)`,
   mobileXL: `(max-width: 1025px)`,
   tablet: `(max-width: 1024px) and (min-width: 769px)`,
-  desktop: `(min-width: 1025px)`
+  desktop: `(min-width: 1025px)`,
 };

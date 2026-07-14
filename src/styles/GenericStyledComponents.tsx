@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { device } from ".";
+import styled from 'styled-components';
+import { device } from '.';
 
 export const InnerContainer = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { device } from "../../styles";
+import React from 'react';
+import styled from 'styled-components';
+import { device } from '../../styles';
 
 export interface RadioOptionsProps {
   options: { label: string; value: string }[];
@@ -65,7 +65,7 @@ const Container = styled.div`
 
 const OptionsContainer = styled.div<{ column?: boolean }>`
   display: flex;
-  flex-direction: ${({ column }) => (column ? "column" : "row")};
+  flex-direction: ${({ column }) => (column ? 'column' : 'row')};
   margin: 14px 0 0 0;
   flex-wrap: wrap;
   @media ${device.mobileL} {
@@ -91,7 +91,7 @@ const OptionLabel = styled.label<{ disabled }>`
   font-size: 1.6rem;
   color: #231f20;
   opacity: 1;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;
 
 const ErrorMessage = styled.label`
@@ -106,7 +106,7 @@ const StyledInput = styled.input<{ disabled?: boolean }>`
     display: none;
   }
   & + *::before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 1.5rem;
     vertical-align: middle;
@@ -117,7 +117,7 @@ const StyledInput = styled.input<{ disabled?: boolean }>`
     border-width: 0.1rem;
     border-color: ${({ theme }) => theme.colors.primary};
     opacity: ${({ disabled }) => (disabled ? 0.48 : 1)};
-    cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+    cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   }
 
   &:checked + *::before {

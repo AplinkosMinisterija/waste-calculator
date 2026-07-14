@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react";
-import { getFilteredOptions } from "./functions";
+import { useEffect, useState } from 'react';
+import { getFilteredOptions } from './functions';
 
-export const useSelectData = ({
-  options,
-  disabled,
-  onChange,
-  getOptionLabel
-}) => {
-  const [input, setInputValue] = useState("");
+export const useSelectData = ({ options, disabled, onChange, getOptionLabel }) => {
+  const [input, setInputValue] = useState('');
   const [showSelect, setShowSelect] = useState(false);
   const [suggestions, setSuggestions] = useState<any>(options);
 
@@ -18,7 +13,7 @@ export const useSelectData = ({
   const handleBlur = (event: any) => {
     if (!event.currentTarget.contains(event.relatedTarget)) {
       setShowSelect(false);
-      setInputValue("");
+      setInputValue('');
     }
   };
 
@@ -28,7 +23,7 @@ export const useSelectData = ({
 
   const handleClick = (option: any) => {
     setShowSelect(false);
-    setInputValue("");
+    setInputValue('');
     onChange(option);
   };
 
@@ -49,6 +44,6 @@ export const useSelectData = ({
     showSelect,
     handleBlur,
     handleClick,
-    handleOnChange
+    handleOnChange,
   };
 };

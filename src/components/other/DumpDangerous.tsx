@@ -1,22 +1,17 @@
-import { FieldArray, Formik } from "formik";
-import { isEmpty } from "lodash";
-import { useMemo, useRef, useState } from "react";
-import styled from "styled-components";
-import { getDumpSum } from "../../utils/functions";
-import {
-  bottomLabels,
-  buttonsTitles,
-  formLabels,
-  inputLabels
-} from "../../utils/texts";
-import { validateDump } from "../../utils/validation";
-import Button from "../buttons/Button";
-import SimpleButton from "../buttons/SimpleButton";
-import SimpleContainer from "../containers/SimpleContainer";
-import NumericTextField from "../fields/NumericTextField";
-import TextField from "../fields/TextField";
-import Icon from "./Icons";
-import Popup from "./Popup";
+import { FieldArray, Formik } from 'formik';
+import { isEmpty } from 'lodash';
+import { useMemo, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { getDumpSum } from '../../utils/functions';
+import { bottomLabels, buttonsTitles, formLabels, inputLabels } from '../../utils/texts';
+import { validateDump } from '../../utils/validation';
+import Button from '../buttons/Button';
+import SimpleButton from '../buttons/SimpleButton';
+import SimpleContainer from '../containers/SimpleContainer';
+import NumericTextField from '../fields/NumericTextField';
+import TextField from '../fields/TextField';
+import Icon from './Icons';
+import Popup from './Popup';
 
 const DumpDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
   const [showModal, setShowModal] = useState(false);
@@ -48,8 +43,7 @@ const DumpDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
               </IconContainer>
               <IconContainer
                 onClick={() => {
-                  arrayHelperRef?.current &&
-                    arrayHelperRef?.current?.remove(index);
+                  arrayHelperRef?.current && arrayHelperRef?.current?.remove(index);
                 }}
               >
                 <StyledDeleteIcon name="deleteItem" />
@@ -69,7 +63,7 @@ const DumpDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
           arrayHelperRef.current = arrayHelpers;
 
           const handleSubmit = (values) => {
-            const params = { ...values, setAside: values.setAside || "0" };
+            const params = { ...values, setAside: values.setAside || '0' };
             if (!isEmpty(current)) {
               arrayHelpers.replace(current?.index, params);
             } else {
@@ -85,9 +79,7 @@ const DumpDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
               <Table>
                 <TableRow>
                   <Cell>Eil nr.</Cell>
-                  <Cell>
-                    {inputLabels.expectedToBeRemovedDumpDangerousQuantity}
-                  </Cell>
+                  <Cell>{inputLabels.expectedToBeRemovedDumpDangerousQuantity}</Cell>
                   <Cell>{inputLabels.removedDumpDangerousQuantity}</Cell>
 
                   <Cell>{inputLabels.nk1}</Cell>
@@ -124,44 +116,34 @@ const DumpDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
                   onSubmit={handleSubmit}
                 >
                   {({ values, errors, setFieldValue, handleSubmit }) => {
-                    const sum = getDumpSum(
-                      yearCoeffCient,
-                      values?.quantity,
-                      values?.setAside
-                    );
+                    const sum = getDumpSum(yearCoeffCient, values?.quantity, values?.setAside);
 
                     return (
                       <InnerContainer>
                         <NumericTextField
-                          label={
-                            inputLabels.expectedToBeRemovedDumpDangerousQuantity
-                          }
+                          label={inputLabels.expectedToBeRemovedDumpDangerousQuantity}
                           name="quantity"
                           value={values?.quantity?.s1}
                           error={(errors?.quantity as any)?.s1}
-                          onChange={(quantity) =>
-                            setFieldValue(`quantity.s1`, quantity)
-                          }
+                          onChange={(quantity) => setFieldValue(`quantity.s1`, quantity)}
                         />
                         <NumericTextField
                           label={inputLabels.removedDumpDangerousQuantity}
                           name="quantity"
                           value={values?.quantity?.s2}
                           error={(errors?.quantity as any)?.s2}
-                          onChange={(quantity) =>
-                            setFieldValue(`quantity.s2`, quantity)
-                          }
+                          onChange={(quantity) => setFieldValue(`quantity.s2`, quantity)}
                         />
                         <StyledTextField
                           label={inputLabels.nk1}
-                          value={yearCoeffCient?.s1 || ""}
+                          value={yearCoeffCient?.s1 || ''}
                           disabled={true}
                           bottomLabel={bottomLabels.yearCoeffiCient}
                           onChange={() => {}}
                         />
                         <StyledTextField
                           label={inputLabels.nk2}
-                          value={yearCoeffCient?.s2 || ""}
+                          value={yearCoeffCient?.s2 || ''}
                           disabled={true}
                           bottomLabel={bottomLabels.yearCoeffiCient}
                           onChange={() => {}}
@@ -171,9 +153,7 @@ const DumpDangerousContainer = ({ values, name, sum, yearCoeffCient }) => {
                           name="setAside"
                           error={errors?.setAside}
                           value={values.setAside}
-                          onChange={(setAside) =>
-                            setFieldValue(`setAside`, setAside)
-                          }
+                          onChange={(setAside) => setFieldValue(`setAside`, setAside)}
                         />
 
                         <StyledTextField

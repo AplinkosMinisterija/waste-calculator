@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import { ChildrenType } from "../../types";
-import Loader from "../other/Loader";
+import React from 'react';
+import styled from 'styled-components';
+import { ChildrenType } from '../../types';
+import Loader from '../other/Loader';
 export enum ButtonColors {
-  PRIMARY = "primary",
-  SECONDARY = "secondary",
-  TERTIARY = "tertiary",
-  DANGER = "danger",
-  SUCCESS = "success",
-  TRANSPARENT = "transparent"
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  TERTIARY = 'tertiary',
+  DANGER = 'danger',
+  SUCCESS = 'success',
+  TRANSPARENT = 'transparent',
 }
 
 export interface ButtonProps {
@@ -31,7 +31,7 @@ const Button = ({
   route,
   children,
   height,
-  padding = "0",
+  padding = '0',
   leftIcon,
   buttonPadding,
   rightIcon,
@@ -78,24 +78,21 @@ const StyledButton = styled.button<{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: ${({ height }) => (height ? height + "px" : "40px")};
+  height: ${({ height }) => (height ? height + 'px' : '40px')};
   border-radius: 4px;
-  padding: ${({ padding }) => (padding ? padding : "11px 20px;")};
+  padding: ${({ padding }) => (padding ? padding : '11px 20px;')};
   background-color: ${({ variant, theme }) => theme.colors[variant]};
   color: white;
-  border: 1px solid
-    ${({ variant }) => (variant !== "transparent" ? "transparent" : " #231F20")};
+  border: 1px solid ${({ variant }) => (variant !== 'transparent' ? 'transparent' : ' #231F20')};
   font-weight: normal;
   font-size: 1.6rem;
 
   :hover {
     background-color: ${({ variant, theme }) =>
-      variant !== "transparent"
-        ? theme.colors.hover[variant]
-        : theme.colors.tertiaryLight};
+      variant !== 'transparent' ? theme.colors.hover[variant] : theme.colors.tertiaryLight};
   }
 
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   width: 100%;
 `;
 

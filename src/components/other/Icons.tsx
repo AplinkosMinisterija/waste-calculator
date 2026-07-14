@@ -5,28 +5,25 @@ import {
   AiOutlineArrowRight,
   AiOutlineLeft,
   AiOutlineMail,
-  AiOutlineRight
-} from "react-icons/ai";
+  AiOutlineRight,
+} from 'react-icons/ai';
 import {
   BiCalendarEvent,
   BiCurrentLocation,
   BiInfoCircle,
   BiMinusCircle,
   BiSearchAlt2,
-  BiWater
-} from "react-icons/bi";
-import { BsLayersHalf, BsLink45Deg } from "react-icons/bs";
-import { CgMathMinus, CgMathPlus } from "react-icons/cg";
-import { FaTrash } from "react-icons/fa";
-import { FiClock, FiDownload, FiPhone, FiUser, FiUsers } from "react-icons/fi";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { GoLocation } from "react-icons/go";
-import {
-  HiOutlineArrowNarrowLeft,
-  HiOutlineLocationMarker
-} from "react-icons/hi";
-import { IoIosArrowDown, IoMdCalendar } from "react-icons/io";
-import { IoCloseOutline, IoLocationSharp } from "react-icons/io5";
+  BiWater,
+} from 'react-icons/bi';
+import { BsLayersHalf, BsLink45Deg } from 'react-icons/bs';
+import { CgMathMinus, CgMathPlus } from 'react-icons/cg';
+import { FaTrash } from 'react-icons/fa';
+import { FiClock, FiDownload, FiPhone, FiUser, FiUsers } from 'react-icons/fi';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { GoLocation } from 'react-icons/go';
+import { HiOutlineArrowNarrowLeft, HiOutlineLocationMarker } from 'react-icons/hi';
+import { IoIosArrowDown, IoMdCalendar } from 'react-icons/io';
+import { IoCloseOutline, IoLocationSharp } from 'react-icons/io5';
 import {
   MdArrowBack,
   MdArrowBackIos,
@@ -52,158 +49,149 @@ import {
   MdSplitscreen,
   MdTune,
   MdUnfoldMore,
-  MdViewModule
-} from "react-icons/md";
-import {
-  RiArrowDownSFill,
-  RiArrowDownSLine,
-  RiMap2Fill,
-  RiTempColdLine
-} from "react-icons/ri";
-import {
-  TiArrowSortedDown,
-  TiArrowSortedUp,
-  TiArrowUnsorted,
-  TiThMenu
-} from "react-icons/ti";
-import { VscVerified } from "react-icons/vsc";
+  MdViewModule,
+} from 'react-icons/md';
+import { RiArrowDownSFill, RiArrowDownSLine, RiMap2Fill, RiTempColdLine } from 'react-icons/ri';
+import { TiArrowSortedDown, TiArrowSortedUp, TiArrowUnsorted, TiThMenu } from 'react-icons/ti';
+import { VscVerified } from 'react-icons/vsc';
+
 export interface IconProps {
   name: string;
   className?: string;
   fun?: () => void;
 }
 
-const Icon = ({ name, className, fun }: IconProps) => {
+const Icon = ({ name, className }: IconProps) => {
   switch (name) {
-    case "temp":
+    case 'temp':
       return <RiTempColdLine className={className} />;
-    case "layer":
+    case 'layer':
       return <BsLayersHalf className={className} />;
-    case "location":
+    case 'location':
       return <HiOutlineLocationMarker className={className} />;
-    case "date":
+    case 'date':
       return <BiCalendarEvent className={className} />;
-    case "info":
+    case 'info':
       return <BiInfoCircle className={className} />;
-    case "download":
+    case 'download':
       return <FiDownload className={className} />;
-    case "water":
+    case 'water':
       return <BiWater className={className} />;
-    case "verified":
+    case 'verified':
       return <VscVerified className={className} />;
-    case "plus":
+    case 'plus':
       return <CgMathPlus className={className} />;
-    case "minus":
+    case 'minus':
       return <CgMathMinus className={className} />;
-    case "search":
+    case 'search':
       return <BiSearchAlt2 className={className} />;
-    case "Searchlocation":
+    case 'Searchlocation':
       return <GoLocation className={className} />;
-    case "MapLocation":
+    case 'MapLocation':
       return <IoLocationSharp className={className} />;
-    case "filter":
+    case 'filter':
       return <MdTune className={className} />;
-    case "delete":
+    case 'delete':
       return <BiMinusCircle className={className} />;
-    case "calendar":
+    case 'calendar':
       return <IoMdCalendar className={className} />;
-    case "arrowDown":
+    case 'arrowDown':
       return <RiArrowDownSLine className={className} />;
-    case "miniArrowDown":
+    case 'miniArrowDown':
       return <RiArrowDownSFill className={className} />;
-    case "arrowUp":
+    case 'arrowUp':
       return <AiFillCaretUp className={className} />;
-    case "close":
+    case 'close':
       return <IoCloseOutline className={className} />;
-    case "map":
+    case 'map':
       return <RiMap2Fill className={className} />;
-    case "current":
+    case 'current':
       return <BiCurrentLocation className={className} />;
-    case "back":
+    case 'back':
       return <MdArrowBackIosNew className={className} />;
-    case "backMobile":
+    case 'backMobile':
       return <MdArrowBack className={className} />;
-    case "phone":
+    case 'phone':
       return <FiPhone className={className} />;
-    case "email":
+    case 'email':
       return <MdEmail className={className} />;
-    case "user":
+    case 'user':
       return <FiUser className={className} />;
-    case "users":
+    case 'users':
       return <FiUsers className={className} />;
-    case "modules":
+    case 'modules':
       return <MdViewModule className={className} />;
-    case "time":
+    case 'time':
       return <FiClock className={className} />;
-    case "exit":
+    case 'exit':
       return <MdExitToApp className={className} />;
-    case "company":
+    case 'company':
       return <MdBusiness className={className} />;
-    case "userEmail":
+    case 'userEmail':
       return <AiOutlineMail className={className} />;
-    case "dropdownArrow":
+    case 'dropdownArrow':
       return <MdKeyboardArrowDown className={className} />;
-    case "connect":
+    case 'connect':
       return <BsLink45Deg className={className} />;
-    case "add":
+    case 'add':
       return <AiFillPlusCircle className={className} />;
-    case "more":
+    case 'more':
       return <MdMoreVert className={className} />;
-    case "menu":
+    case 'menu':
       return <TiThMenu className={className} />;
-    case "down":
+    case 'down':
       return <IoIosArrowDown className={className} />;
-    case "attachment":
+    case 'attachment':
       return <MdAttachFile className={className} />;
-    case "active":
+    case 'active':
       return <MdDone className={className} />;
-    case "list":
+    case 'list':
       return <MdList className={className} />;
-    case "showMore":
+    case 'showMore':
       return <MdUnfoldMore className={className} />;
-    case "unsorted":
+    case 'unsorted':
       return <TiArrowUnsorted className={className} />;
-    case "sortedUp":
+    case 'sortedUp':
       return <TiArrowSortedUp className={className} />;
-    case "sortedDown":
+    case 'sortedDown':
       return <TiArrowSortedDown className={className} />;
-    case "burger":
+    case 'burger':
       return <GiHamburgerMenu className={className} />;
-    case "forward":
+    case 'forward':
       return <MdArrowForwardIos className={className} />;
-    case "backward":
+    case 'backward':
       return <MdArrowBackIos className={className} />;
-    case "visibleOn":
+    case 'visibleOn':
       return <MdOutlineVisibility className={className} />;
-    case "visibleOff":
+    case 'visibleOff':
       return <MdOutlineVisibilityOff className={className} />;
-    case "returnArrow":
+    case 'returnArrow':
       return <HiOutlineArrowNarrowLeft className={className} />;
-    case "splitView":
+    case 'splitView':
       return <MdSplitscreen className={className} />;
-    case "picture":
+    case 'picture':
       return <AiFillPicture className={className} />;
-    case "remove":
+    case 'remove':
       return <FaTrash className={className} />;
-    case "arrowRight":
+    case 'arrowRight':
       return <AiOutlineArrowRight className={className} />;
-    case "photo":
+    case 'photo':
       return <MdOutlineInsertPhoto className={className} />;
-    case "description":
+    case 'description':
       return <MdOutlineDescription className={className} />;
-    case "campaign":
+    case 'campaign':
       return <MdOutlineCampaign className={className} />;
-    case "group":
+    case 'group':
       return <MdOutlineGroups className={className} />;
-    case "person":
+    case 'person':
       return <MdOutlinePerson className={className} />;
-    case "leftArrow":
+    case 'leftArrow':
       return <AiOutlineLeft className={className} />;
-    case "rightArrow":
+    case 'rightArrow':
       return <AiOutlineRight className={className} />;
-    case "deleteItem":
+    case 'deleteItem':
       return <MdOutlineDelete className={className} />;
-    case "edit":
+    case 'edit':
       return <MdOutlineEdit className={className} />;
     default:
       return null;

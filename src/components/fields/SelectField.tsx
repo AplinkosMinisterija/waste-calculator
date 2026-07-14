@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { inputLabels } from "../../utils/texts";
-import Icon from "../other/Icons";
-import FieldWrapper from "./components/FieldWrapper";
-import OptionsContainer from "./components/OptionsContainer";
-import TextFieldInput from "./components/TextFieldInput";
-import { useSelectData } from "./utils/hooks";
+import styled from 'styled-components';
+import { inputLabels } from '../../utils/texts';
+import Icon from '../other/Icons';
+import FieldWrapper from './components/FieldWrapper';
+import OptionsContainer from './components/OptionsContainer';
+import TextFieldInput from './components/TextFieldInput';
+import { useSelectData } from './utils/hooks';
 
 export interface SelectFieldProps {
   id?: string;
@@ -38,7 +38,7 @@ const SelectField = ({
   getOptionLabel,
   onChange,
   bottomLabel,
-  disabled
+  disabled,
 }: SelectFieldProps) => {
   const {
     suggestions,
@@ -47,7 +47,7 @@ const SelectField = ({
     showSelect,
     handleBlur,
     handleClick,
-    handleOnChange
+    handleOnChange,
   } = useSelectData({ options, disabled, onChange, getOptionLabel });
 
   return (
@@ -69,13 +69,11 @@ const SelectField = ({
         rightIcon={
           <>
             {value && !disabled && (
-              <IconContainer
-                onClick={() => !disabled && handleClick(undefined)}
-              >
+              <IconContainer onClick={() => !disabled && handleClick(undefined)}>
                 <ClearIcon disabled={disabled!} name="close" />
               </IconContainer>
             )}
-            <StyledIcon name={"dropdownArrow"} />
+            <StyledIcon name={'dropdownArrow'} />
           </>
         }
         onChange={handleOnChange}
@@ -98,7 +96,7 @@ const ClearIcon = styled(Icon)<{ disabled: boolean }>`
   font-size: 2.4rem;
   margin-right: 12px;
 
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;
 
 const IconContainer = styled.div`

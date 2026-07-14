@@ -1,6 +1,6 @@
-import { isEmpty } from "lodash";
-import styled from "styled-components";
-import LoaderComponent from "../../other/LoaderComponent";
+import { isEmpty } from 'lodash';
+import styled from 'styled-components';
+import LoaderComponent from '../../other/LoaderComponent';
 
 export interface SelectOption {
   id?: string;
@@ -25,7 +25,7 @@ const OptionsContainer = ({
   handleClick,
   handleScroll,
   showSelect,
-  loading
+  loading,
 }: OptionsContainerProps) => {
   if (!showSelect || disabled || isEmpty(values)) {
     return <></>;

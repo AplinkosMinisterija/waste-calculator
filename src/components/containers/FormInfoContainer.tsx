@@ -1,30 +1,30 @@
-import React from "react";
-import styled from "styled-components";
-import { device } from "../../styles";
-import Avatar from "../other/Avatar";
-import SimpleContainer from "./SimpleContainer";
+import React from 'react';
+import styled from 'styled-components';
+import { device } from '../../styles';
+import Avatar from '../other/Avatar';
+import SimpleContainer from './SimpleContainer';
 
 export enum KeyTypes {
-  createdAt = "createdAt",
-  state = "state",
-  createdBy = "createdBy",
-  status = "status",
-  completeBy = "completeBy",
-  assigned = "assigned",
-  originPlace = "originPlace",
-  originPlaceStatus = "originPlaceStatus",
-  originPlaceCode = "originPlaceCode"
+  createdAt = 'createdAt',
+  state = 'state',
+  createdBy = 'createdBy',
+  status = 'status',
+  completeBy = 'completeBy',
+  assigned = 'assigned',
+  originPlace = 'originPlace',
+  originPlaceStatus = 'originPlaceStatus',
+  originPlaceCode = 'originPlaceCode',
 }
 export const formInfolabels = {
-  createdAt: "sukurta:",
-  createdBy: "Duomenis įvedė:",
-  state: "Būsena:",
-  status: "Statusas:",
-  completeBy: "Užduotį atlikti iki:",
-  assigned: "Priskirta",
-  originPlace: "Radavietė:",
-  originPlaceStatus: "Radavietės būsena:",
-  originPlaceCode: "Radavietės kodas:"
+  createdAt: 'sukurta:',
+  createdBy: 'Duomenis įvedė:',
+  state: 'Būsena:',
+  status: 'Statusas:',
+  completeBy: 'Užduotį atlikti iki:',
+  assigned: 'Priskirta',
+  originPlace: 'Radavietė:',
+  originPlaceStatus: 'Radavietės būsena:',
+  originPlaceCode: 'Radavietės kodas:',
 };
 
 export type FormInfoContainerProps = {
@@ -46,8 +46,8 @@ const FormInfoContainer = (props: FormInfoContainerProps) => {
                 <InnerRow>
                   {key === KeyTypes.assigned && (
                     <StyledAvatar
-                      name={props[key]?.split(" ")?.[0] || ""}
-                      surname={props[key]?.split(" ")?.[1] || ""}
+                      name={props[key]?.split(' ')?.[0] || ''}
+                      surname={props[key]?.split(' ')?.[1] || ''}
                       mini={true}
                     />
                   )}

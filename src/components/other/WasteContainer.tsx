@@ -1,19 +1,20 @@
-import { FieldArray, Formik } from "formik";
-import { isEmpty, isEqual } from "lodash";
-import { useMemo, useRef, useState } from "react";
-import styled from "styled-components";
-import { stream, waste } from "../../utils/data";
-import { getCoefficient, getSum } from "../../utils/functions";
-import { bottomLabels, buttonsTitles } from "../../utils/texts";
-import { validateWaste } from "../../utils/validation";
-import Button from "../buttons/Button";
-import SimpleButton from "../buttons/SimpleButton";
-import SimpleContainer from "../containers/SimpleContainer";
-import NumericTextField from "../fields/NumericTextField";
-import SelectField from "../fields/SelectField";
-import TextField from "../fields/TextField";
-import Icon from "./Icons";
-import Popup from "./Popup";
+import { FieldArray, Formik } from 'formik';
+import { isEmpty, isEqual } from 'lodash';
+import { useMemo, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { stream, waste } from '../../utils/data';
+import { getCoefficient, getSum, getWasteStreamCode } from '../../utils/functions';
+import { isAvailableForPeriod } from '../../utils/itemFilters';
+import { bottomLabels, buttonsTitles } from '../../utils/texts';
+import { validateWaste } from '../../utils/validation';
+import Button from '../buttons/Button';
+import SimpleButton from '../buttons/SimpleButton';
+import SimpleContainer from '../containers/SimpleContainer';
+import NumericTextField from '../fields/NumericTextField';
+import SelectField from '../fields/SelectField';
+import TextField from '../fields/TextField';
+import Icon from './Icons';
+import Popup from './Popup';
 
 const WasteContainer = ({
   values,
@@ -23,9 +24,10 @@ const WasteContainer = ({
   name,
   title,
   sum,
-  yearCoeffiCient
+  includeDeactivatedCodes,
+  yearCoeffiCient,
 }) => {
-  const isWasteFormType = formType === "waste";
+  const isWasteFormType = formType === 'waste';
 
   const [showModal, setShowModal] = useState(false);
   const [current, setCurrent] = useState<any>({});
@@ -37,9 +39,9 @@ const WasteContainer = ({
       const sum = getSum(coefficient, value?.quantity, yearCoeffiCient);
 
       return (
-        <TableRow>
+        <TableRow key={index + 'table'}>
           <Cell>{index + 1}</Cell>
-          <Cell>{value?.streamCode?.id}</Cell>
+          <Cell>{getWasteStreamCode(value)}</Cell>
           <Cell>{value?.wasteCode?.id}</Cell>
           <Cell>{yearCoeffiCient}</Cell>
           <Cell>{value?.quantity}</Cell>
@@ -58,8 +60,7 @@ const WasteContainer = ({
               </IconContainer>
               <IconContainer
                 onClick={() => {
-                  arrayHelperRef?.current &&
-                    arrayHelperRef?.current?.remove(index);
+                  arrayHelperRef?.current && arrayHelperRef?.current?.remove(index);
                 }}
               >
                 <StyledDeleteIcon name="deleteItem" />
@@ -135,35 +136,31 @@ const WasteContainer = ({
                   onSubmit={handleSubmit}
                 >
                   {({ values, errors, setFieldValue, handleSubmit }) => {
-                    const streams = stream.filter((item) =>
-                      isEqual(item.type, wasteType)
+                    const streams = stream.filter(
+                      (item) =>
+                        isEqual(item.type, wasteType) &&
+                        isAvailableForPeriod(item, includeDeactivatedCodes),
                     );
 
-                    const coefficient = getCoefficient(
-                      values?.code,
-                      values?.streamCode
-                    );
+                    const coefficient = getCoefficient(values?.code, values?.streamCode);
 
-                    const sum = getSum(
-                      coefficient,
-                      values?.quantity,
-                      yearCoeffiCient
-                    );
+                    const sum = getSum(coefficient, values?.quantity, yearCoeffiCient);
 
-                    const wastes = waste.filter((item) =>
-                      isEqual(item.type, wasteType)
-                    );
+                    const wastes = waste
+                      .filter(
+                        (item) =>
+                          isEqual(item.type, wasteType) &&
+                          isAvailableForPeriod(item, includeDeactivatedCodes),
+                      )
+                      .sort((a, b) => a.id.localeCompare(b.id));
 
                     const handleSetWasteCode = (wasteCode) => {
                       setFieldValue(`wasteCode`, wasteCode);
 
-                      if (!wasteCode)
-                        return setFieldValue(`streamCode`, undefined);
+                      if (!wasteCode) return setFieldValue(`streamCode`, undefined);
 
                       const stream = streams.find(
-                        (item) =>
-                          item.type === wasteType &&
-                          item.id === wasteCode.streamId
+                        (item) => item.type === wasteType && item.id === wasteCode.streamId,
                       );
 
                       setFieldValue(`streamCode`, stream);
@@ -192,14 +189,12 @@ const WasteContainer = ({
                           error={errors?.wasteCode}
                           options={wastes || []}
                           getOptionLabel={(option) => option.id}
-                          bottomLabel={
-                            !isWasteFormType ? bottomLabels.disabled : ""
-                          }
+                          bottomLabel={!isWasteFormType ? bottomLabels.disabled : ''}
                           onChange={handleSetWasteCode}
                         />
                         <StyledTextField
                           label={labels.yearCoeffCient}
-                          value={yearCoeffiCient || ""}
+                          value={yearCoeffiCient || ''}
                           disabled={true}
                           onChange={() => {}}
                           bottomLabel={bottomLabels.yearCoeffiCient}
@@ -209,15 +204,13 @@ const WasteContainer = ({
                           name="quantity"
                           value={values.quantity}
                           error={errors?.quantity}
-                          onChange={(quantity) =>
-                            setFieldValue(`quantity`, quantity)
-                          }
+                          onChange={(quantity) => setFieldValue(`quantity`, quantity)}
                         />
                         <StyledSelectField
                           label={labels.code}
                           name="code"
                           value={values.code}
-                          options={["R", "D", "S"]}
+                          options={['R', 'D', 'S']}
                           error={errors?.code}
                           bottomLabel={bottomLabels.code}
                           onChange={(code) => setFieldValue(`code`, code)}

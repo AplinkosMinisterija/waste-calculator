@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export interface SingleCheckBoxProps {
   value?: boolean;
@@ -17,7 +17,7 @@ const SingleCheckBox = ({
   label,
   error,
   className,
-  someChildrenSelected
+  someChildrenSelected,
 }: SingleCheckBoxProps) => {
   return (
     <>
@@ -51,7 +51,7 @@ const SingleCheckBox = ({
 const Container = styled.div<{ disabled: boolean }>`
   display: grid;
   grid-template-columns: 28px 1fr;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;
 
 const TextLabel = styled.div`
@@ -81,7 +81,7 @@ const InnerContainer = styled.div<{
 `;
 
 const Label = styled.label<{ disabled: boolean }>`
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   position: absolute;
   width: 14px;
   height: 14px;
@@ -91,10 +91,10 @@ const Label = styled.label<{ disabled: boolean }>`
   background-color: white;
 
   &::after {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
     filter: alpha(opacity=0);
     opacity: 0;
-    content: "";
+    content: '';
     position: absolute;
     width: 11px;
     height: 4px;
@@ -120,12 +120,12 @@ const CheckBox = styled.input<{ disabled: boolean }>`
   left: -4px;
   opacity: 0;
 
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   &:checked + label {
     background-color: transparent;
   }
   &:checked + label::after {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
     filter: alpha(opacity=100);
     opacity: 1;
   }
