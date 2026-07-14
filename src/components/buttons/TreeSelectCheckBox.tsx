@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export interface SingleCheckBoxProps {
   value?: boolean;
@@ -17,7 +17,7 @@ const Checkbox = ({
   label,
   error,
   className,
-  intermediate
+  intermediate,
 }: SingleCheckBoxProps) => {
   return (
     <>
@@ -90,14 +90,13 @@ const Label = styled.label<{ intermediate?: boolean }>`
   left: 2px;
   top: 2px;
 
-  background-color: ${({ intermediate }) =>
-    intermediate ? "transparent" : "white"};
+  background-color: ${({ intermediate }) => (intermediate ? 'transparent' : 'white')};
 
   &::after {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
     filter: alpha(opacity=0);
     opacity: 0;
-    content: "";
+    content: '';
     position: absolute;
     width: ${({ intermediate }) => `${intermediate ? 10 : 13}px`};
     height: 6px;
@@ -119,15 +118,9 @@ const Label = styled.label<{ intermediate?: boolean }>`
     -webkit-transform: rotate(
       ${({ intermediate }) => `${intermediate ? 0 : -45}deg`}
     );
-    -moz-transform: rotate(
-      ${({ intermediate }) => `${intermediate ? 0 : -45}deg`}
-    );
-    -o-transform: rotate(
-      ${({ intermediate }) => `${intermediate ? 0 : -45}deg`}
-    );
-    -ms-transform: rotate(
-      ${({ intermediate }) => `${intermediate ? 0 : -45}deg`}
-    );
+    -moz-transform: rotate(${({ intermediate }) => `${intermediate ? 0 : -45}deg`});
+    -o-transform: rotate(${({ intermediate }) => `${intermediate ? 0 : -45}deg`});
+    -ms-transform: rotate(${({ intermediate }) => `${intermediate ? 0 : -45}deg`});
     transform: rotate(${({ intermediate }) => `${intermediate ? 0 : -45}deg`});
   }
 `;
@@ -140,13 +133,13 @@ const CheckBox = styled.input<{ disabled: boolean }>`
   z-index: 7;
   opacity: 0;
 
-  cursor: ${({ disabled }) => (disabled ? "text" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'text' : 'pointer')};
   &:checked + label {
     background-color: transparent;
   }
 
   &:checked + label::after {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
     filter: alpha(opacity=100);
     opacity: 1;
   }

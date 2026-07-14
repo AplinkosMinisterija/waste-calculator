@@ -51,6 +51,7 @@
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
+  "prettier": "@aplinkosministerija/biip-prettier-config",
   "scripts": {
     "start": "export PORT=8080  &&  react-scripts start",
     "start-win": "set PORT=8080 && react-scripts start",

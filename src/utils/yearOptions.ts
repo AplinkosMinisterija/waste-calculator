@@ -1,5 +1,5 @@
-import { TS_06_DEACTIVATION_DATE, WasteType } from "./constants";
-import { yearData } from "./data";
+import { TS_06_DEACTIVATION_DATE, WasteType } from './constants';
+import { yearData } from './data';
 
 export interface YearOption {
   year: number;
@@ -14,8 +14,8 @@ const SPLIT_YEAR = new Date(TS_06_DEACTIVATION_DATE).getUTCFullYear();
 // Labels for the two halves of the split year. Day numbers bracket the cutoff:
 // the last available day and the first deactivated day.
 export const YEAR_PERIOD_LABELS = {
-  beforeCutoff: "2026 iki Lapkričio 8-os",
-  afterCutoff: "2026 po Lapkričio 9-os"
+  beforeCutoff: '2026 iki Lapkričio 8-os',
+  afterCutoff: '2026 po Lapkričio 9-os',
 };
 
 // Build the year dropdown options. Every year maps to a single option except the
@@ -24,20 +24,20 @@ export const YEAR_PERIOD_LABELS = {
 // fall before the split year.
 export const buildYearOptions = (): YearOption[] =>
   yearData
-    .filter(item => item.type === WasteType.DANGEROUS)
-    .flatMap<YearOption>(item => {
+    .filter((item) => item.type === WasteType.DANGEROUS)
+    .flatMap<YearOption>((item) => {
       if (item.year === SPLIT_YEAR) {
         return [
           {
             year: item.year,
             label: YEAR_PERIOD_LABELS.beforeCutoff,
-            includeDeactivated: true
+            includeDeactivated: true,
           },
           {
             year: item.year,
             label: YEAR_PERIOD_LABELS.afterCutoff,
-            includeDeactivated: false
-          }
+            includeDeactivated: false,
+          },
         ];
       }
 
@@ -45,7 +45,7 @@ export const buildYearOptions = (): YearOption[] =>
         {
           year: item.year,
           label: String(item.year),
-          includeDeactivated: item.year < SPLIT_YEAR
-        }
+          includeDeactivated: item.year < SPLIT_YEAR,
+        },
       ];
     });

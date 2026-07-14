@@ -1,7 +1,7 @@
 export const getFilteredOptions = (
   options: any[],
   input: string,
-  getOptionLabel: (option: any) => string
+  getOptionLabel: (option: any) => string,
 ) =>
   options?.filter((option) => {
     const label = getOptionLabel(option)?.toString().toLowerCase();

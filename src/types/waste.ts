@@ -1,4 +1,4 @@
-import { WasteType } from "../utils/constants";
+import { WasteType } from '../utils/constants';
 
 export type ActiveItem = {
   activeFrom?: string;
@@ -12,7 +12,6 @@ export type StreamItem = ActiveItem & {
   S: number;
   type: WasteType;
   streamId?: string | number;
-
 };
 
 export type WasteItem = ActiveItem & {

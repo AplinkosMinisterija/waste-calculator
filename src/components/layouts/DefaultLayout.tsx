@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { device } from "../../styles";
-import { ChildrenType } from "../../types";
+import styled from 'styled-components';
+import { device } from '../../styles';
+import { ChildrenType } from '../../types';
 
 export interface DefaultLayoutProps {
   children?: ChildrenType;

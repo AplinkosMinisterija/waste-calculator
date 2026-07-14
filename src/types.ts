@@ -1,4 +1,4 @@
-export type ProfileId = "freelancer" | "expert" | string;
+export type ProfileId = 'freelancer' | 'expert' | string;
 
 export type Column = {
   label: string;

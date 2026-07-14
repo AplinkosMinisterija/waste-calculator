@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 export interface RequestCardProps {
   title: string;
@@ -9,13 +9,7 @@ export interface RequestCardProps {
   disabled: boolean;
 }
 
-const RequestCard = ({
-  title,
-  selected,
-  description,
-  onClick,
-  disabled
-}: RequestCardProps) => {
+const RequestCard = ({ title, selected, description, onClick, disabled }: RequestCardProps) => {
   const [onHover, setOnHover] = useState(false);
 
   return (
@@ -39,14 +33,13 @@ const RequestCard = ({
 
 const Container = styled.div<{ selected: boolean; disabled: boolean }>`
   flex: 1;
-  background-color: ${({ selected }) => (selected ? "#fffdf6" : "white")};
+  background-color: ${({ selected }) => (selected ? '#fffdf6' : 'white')};
   border: 1px solid #febc1d;
   opacity: ${({ disabled }) => (disabled ? 0.48 : 1)};
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   border-radius: 8px;
   padding: 20px;
-  border-color: ${({ theme, selected }) =>
-    selected ? theme.colors.primary : theme.colors.border};
+  border-color: ${({ theme, selected }) => (selected ? theme.colors.primary : theme.colors.border)};
 
   ${({ disabled }) =>
     !disabled &&
@@ -64,9 +57,7 @@ const Circle = styled.div<{ selected: boolean }>`
   border-radius: 50%;
   background-color: transparent;
   border: ${({ theme, selected }) =>
-    `${selected ? 4 : 1}px solid${
-      selected ? theme.colors.primary : theme.colors.border
-    }`};
+    `${selected ? 4 : 1}px solid${selected ? theme.colors.primary : theme.colors.border}`};
 `;
 
 const Row = styled.div`

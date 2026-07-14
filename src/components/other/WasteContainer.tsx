@@ -25,7 +25,7 @@ const WasteContainer = ({
   title,
   sum,
   includeDeactivatedCodes,
-  yearCoeffiCient
+  yearCoeffiCient,
 }) => {
   const isWasteFormType = formType === 'waste';
 
@@ -76,10 +76,10 @@ const WasteContainer = ({
     <SimpleContainer title={title}>
       <FieldArray
         name={`${name}`}
-        render={arrayHelpers => {
+        render={(arrayHelpers) => {
           arrayHelperRef.current = arrayHelpers;
 
-          const handleSubmit = values => {
+          const handleSubmit = (values) => {
             if (!isEmpty(current)) {
               arrayHelpers.replace(current?.index, values);
             } else {
@@ -137,9 +137,9 @@ const WasteContainer = ({
                 >
                   {({ values, errors, setFieldValue, handleSubmit }) => {
                     const streams = stream.filter(
-                      item =>
+                      (item) =>
                         isEqual(item.type, wasteType) &&
-                        isAvailableForPeriod(item, includeDeactivatedCodes)
+                        isAvailableForPeriod(item, includeDeactivatedCodes),
                     );
 
                     const coefficient = getCoefficient(values?.code, values?.streamCode);
@@ -148,19 +148,19 @@ const WasteContainer = ({
 
                     const wastes = waste
                       .filter(
-                        item =>
+                        (item) =>
                           isEqual(item.type, wasteType) &&
-                          isAvailableForPeriod(item, includeDeactivatedCodes)
+                          isAvailableForPeriod(item, includeDeactivatedCodes),
                       )
                       .sort((a, b) => a.id.localeCompare(b.id));
 
-                    const handleSetWasteCode = wasteCode => {
+                    const handleSetWasteCode = (wasteCode) => {
                       setFieldValue(`wasteCode`, wasteCode);
 
                       if (!wasteCode) return setFieldValue(`streamCode`, undefined);
 
                       const stream = streams.find(
-                        item => item.type === wasteType && item.id === wasteCode.streamId
+                        (item) => item.type === wasteType && item.id === wasteCode.streamId,
                       );
 
                       setFieldValue(`streamCode`, stream);
@@ -173,10 +173,10 @@ const WasteContainer = ({
                           value={values.streamCode}
                           error={errors?.streamCode}
                           options={streams}
-                          getOptionLabel={option => option.id}
+                          getOptionLabel={(option) => option.id}
                           disabled={isWasteFormType}
                           name="streamCode"
-                          onChange={streamCode => {
+                          onChange={(streamCode) => {
                             setFieldValue(`streamCode`, streamCode);
                             setFieldValue(`wasteCode`, undefined);
                           }}
@@ -188,7 +188,7 @@ const WasteContainer = ({
                           value={values.wasteCode}
                           error={errors?.wasteCode}
                           options={wastes || []}
-                          getOptionLabel={option => option.id}
+                          getOptionLabel={(option) => option.id}
                           bottomLabel={!isWasteFormType ? bottomLabels.disabled : ''}
                           onChange={handleSetWasteCode}
                         />
@@ -204,7 +204,7 @@ const WasteContainer = ({
                           name="quantity"
                           value={values.quantity}
                           error={errors?.quantity}
-                          onChange={quantity => setFieldValue(`quantity`, quantity)}
+                          onChange={(quantity) => setFieldValue(`quantity`, quantity)}
                         />
                         <StyledSelectField
                           label={labels.code}
@@ -213,8 +213,8 @@ const WasteContainer = ({
                           options={['R', 'D', 'S']}
                           error={errors?.code}
                           bottomLabel={bottomLabels.code}
-                          onChange={code => setFieldValue(`code`, code)}
-                          getOptionLabel={option => option}
+                          onChange={(code) => setFieldValue(`code`, code)}
+                          getOptionLabel={(option) => option}
                         />
                         <StyledTextField
                           label={labels.coefficient}

@@ -1,64 +1,40 @@
-import { WasteType } from "./constants";
+import { WasteType } from './constants';
 import {
   getDumpInertTotalSum,
   getDumpTotalSum,
   getMaxSum,
   getTotalSum,
   getYearCof,
-  roundNumber
-} from "./functions";
-import {WasteI} from "../types/wastei";
+  roundNumber,
+} from './functions';
+import { WasteI } from '../types/wastei';
 
 export const useData = (data: WasteI) => {
-  const notDangerousSumYearDataCof = getYearCof(
-    WasteType.NOT_DANGEROUS,
-    data.year
-  );
+  const notDangerousSumYearDataCof = getYearCof(WasteType.NOT_DANGEROUS, data.year);
 
-  const notDangerousSum = getTotalSum(
-    data.notDangerous,
-    notDangerousSumYearDataCof
-  );
+  const notDangerousSum = getTotalSum(data.notDangerous, notDangerousSumYearDataCof);
   const dangerousSumYearDataCof = getYearCof(WasteType.DANGEROUS, data.year);
 
   const dangerousSum = getTotalSum(data.dangerous, dangerousSumYearDataCof);
 
-  const dumpNotDangerousSumYearDataCof = getYearCof(
-    WasteType.DUMP_NOT_DANGEROUS,
-    data.year
-  );
+  const dumpNotDangerousSumYearDataCof = getYearCof(WasteType.DUMP_NOT_DANGEROUS, data.year);
 
-  const dumpDangerousSumYearDataCof = getYearCof(
-    WasteType.DUMP_DANGEROUS,
-    data.year
-  );
+  const dumpDangerousSumYearDataCof = getYearCof(WasteType.DUMP_DANGEROUS, data.year);
 
-  const dumpPhosphogypsumSumYearDataCof = getYearCof(
-    WasteType.DUMP_PHOSPHOGYPSUM,
-    data.year
-  );
+  const dumpPhosphogypsumSumYearDataCof = getYearCof(WasteType.DUMP_PHOSPHOGYPSUM, data.year);
 
   const dumpNotDangerousSum = getDumpTotalSum(
     data.dumpNotDangerous,
-    dumpNotDangerousSumYearDataCof
+    dumpNotDangerousSumYearDataCof,
   );
 
-  const dumpDangerousSum = getDumpTotalSum(
-    data.dumpDangerous,
-    dumpDangerousSumYearDataCof
-  );
+  const dumpDangerousSum = getDumpTotalSum(data.dumpDangerous, dumpDangerousSumYearDataCof);
 
-  const dumpPhosphogypsumSum = getDumpTotalSum(
-    data.phosphogypsum,
-    dumpPhosphogypsumSumYearDataCof
-  );
+  const dumpPhosphogypsumSum = getDumpTotalSum(data.phosphogypsum, dumpPhosphogypsumSumYearDataCof);
 
   const dumpInertSumYearDataCof = getYearCof(WasteType.DUMP_INERT, data.year);
 
-  const dumpInertSum = getDumpInertTotalSum(
-    data.dumpInert,
-    dumpInertSumYearDataCof
-  );
+  const dumpInertSum = getDumpInertTotalSum(data.dumpInert, dumpInertSumYearDataCof);
   const totalSum = roundNumber(
     [
       dumpInertSum,
@@ -66,8 +42,8 @@ export const useData = (data: WasteI) => {
       dumpNotDangerousSum,
       dangerousSum,
       dumpPhosphogypsumSum,
-      notDangerousSum
-    ]?.reduce((totalSum, sum) => totalSum + sum, 0)
+      notDangerousSum,
+    ]?.reduce((totalSum, sum) => totalSum + sum, 0),
   );
 
   const maxSum = getMaxSum(totalSum);
@@ -86,6 +62,6 @@ export const useData = (data: WasteI) => {
     totalSum,
     dumpPhosphogypsumSumYearDataCof,
     dumpPhosphogypsumSum,
-    maxSum
+    maxSum,
   };
 };

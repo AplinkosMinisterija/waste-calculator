@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { ChildrenType } from "../../types";
+import styled from 'styled-components';
+import { ChildrenType } from '../../types';
 
 export interface LoginLayoutProps {
   children?: ChildrenType;
@@ -8,14 +8,9 @@ export interface LoginLayoutProps {
   margin?: string;
 }
 
-const SimpleContainer = ({
-  margin,
-  title,
-  children,
-  className
-}: LoginLayoutProps) => {
+const SimpleContainer = ({ margin, title, children, className }: LoginLayoutProps) => {
   return (
-    <Container margin={margin || "0"} className={className}>
+    <Container margin={margin || '0'} className={className}>
       <Title>{title}</Title>
       <div>{children}</div>
     </Container>

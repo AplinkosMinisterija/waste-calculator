@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { device } from "../../styles";
+import React from 'react';
+import styled from 'styled-components';
+import { device } from '../../styles';
 
 export interface ToggleButtonProps {
   options?: { name: string; value: boolean }[];
@@ -17,7 +17,7 @@ const ToggleButton = ({
   disabled,
   selected,
   className,
-  label
+  label,
 }: ToggleButtonProps) => {
   return (
     <div>
@@ -66,8 +66,8 @@ const Button = styled.button<{
   border-radius: 4px;
   padding: 5px 17px;
   font-size: 1.6rem;
-  color: ${({ selected }) => (selected ? "#ffffff" : "#868787")};
-  background-color: ${({ selected }) => (selected ? "#257D6A" : "#D1D2D1")};
+  color: ${({ selected }) => (selected ? '#ffffff' : '#868787')};
+  background-color: ${({ selected }) => (selected ? '#257D6A' : '#D1D2D1')};
 `;
 
 export default ToggleButton;

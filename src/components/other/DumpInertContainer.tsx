@@ -1,37 +1,26 @@
-import { FieldArray, Formik } from "formik";
-import { isEmpty } from "lodash";
-import { useMemo, useRef, useState } from "react";
-import styled from "styled-components";
-import { getDumpInertSum } from "../../utils/functions";
-import { bottomLabels, buttonsTitles, inputLabels } from "../../utils/texts";
-import { validateInnertDump } from "../../utils/validation";
-import Button from "../buttons/Button";
-import SimpleButton from "../buttons/SimpleButton";
-import SimpleContainer from "../containers/SimpleContainer";
-import NumericTextField from "../fields/NumericTextField";
-import TextField from "../fields/TextField";
-import Icon from "./Icons";
-import Popup from "./Popup";
+import { FieldArray, Formik } from 'formik';
+import { isEmpty } from 'lodash';
+import { useMemo, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { getDumpInertSum } from '../../utils/functions';
+import { bottomLabels, buttonsTitles, inputLabels } from '../../utils/texts';
+import { validateInnertDump } from '../../utils/validation';
+import Button from '../buttons/Button';
+import SimpleButton from '../buttons/SimpleButton';
+import SimpleContainer from '../containers/SimpleContainer';
+import NumericTextField from '../fields/NumericTextField';
+import TextField from '../fields/TextField';
+import Icon from './Icons';
+import Popup from './Popup';
 
-const DumpInertContainer = ({
-  values,
-  name,
-  title,
-  label,
-  sum,
-  yearCoeffCient
-}) => {
+const DumpInertContainer = ({ values, name, title, label, sum, yearCoeffCient }) => {
   const [showModal, setShowModal] = useState(false);
   const [current, setCurrent] = useState<any>({});
   const arrayHelperRef = useRef<any>(null);
 
   const data = useMemo(() => {
     return values?.map((value, index) => {
-      const sum = getDumpInertSum(
-        yearCoeffCient,
-        value?.quantity,
-        value?.setAside
-      );
+      const sum = getDumpInertSum(yearCoeffCient, value?.quantity, value?.setAside);
 
       return (
         <TableRow>
@@ -52,8 +41,7 @@ const DumpInertContainer = ({
               </IconContainer>
               <IconContainer
                 onClick={() => {
-                  arrayHelperRef?.current &&
-                  arrayHelperRef?.current?.remove(index);
+                  arrayHelperRef?.current && arrayHelperRef?.current?.remove(index);
                 }}
               >
                 <StyledDeleteIcon name="deleteItem" />
@@ -73,7 +61,7 @@ const DumpInertContainer = ({
           arrayHelperRef.current = arrayHelpers;
 
           const handleSubmit = (values) => {
-            const params = { ...values, setAside: values.setAside || "0" };
+            const params = { ...values, setAside: values.setAside || '0' };
             if (!isEmpty(current)) {
               arrayHelpers.replace(current?.index, params);
             } else {
@@ -123,11 +111,7 @@ const DumpInertContainer = ({
                   onSubmit={handleSubmit}
                 >
                   {({ values, errors, setFieldValue, handleSubmit }) => {
-                    const sum = getDumpInertSum(
-                      yearCoeffCient,
-                      values?.quantity,
-                      values?.setAside
-                    );
+                    const sum = getDumpInertSum(yearCoeffCient, values?.quantity, values?.setAside);
 
                     return (
                       <InnerContainer>
@@ -136,14 +120,12 @@ const DumpInertContainer = ({
                           name="quantity"
                           value={values.quantity}
                           error={errors?.quantity}
-                          onChange={(quantity) =>
-                            setFieldValue(`quantity`, quantity)
-                          }
+                          onChange={(quantity) => setFieldValue(`quantity`, quantity)}
                         />
 
                         <StyledTextField
                           label={inputLabels.n1}
-                          value={yearCoeffCient || ""}
+                          value={yearCoeffCient || ''}
                           disabled={true}
                           bottomLabel={bottomLabels.yearCoeffiCient}
                           onChange={() => {}}
@@ -153,9 +135,7 @@ const DumpInertContainer = ({
                           name="setAside"
                           error={errors?.setAside}
                           value={values.setAside}
-                          onChange={(setAside) =>
-                            setFieldValue(`setAside`, setAside)
-                          }
+                          onChange={(setAside) => setFieldValue(`setAside`, setAside)}
                         />
 
                         <StyledTextField

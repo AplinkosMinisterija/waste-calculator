@@ -27,7 +27,7 @@ const MultiTextField = ({
   handleKeyDown,
   placeholder = '',
   input,
-  disabled
+  disabled,
 }: MultiTextFieldProps) => {
   const inputRef = useRef<any>(null);
 
@@ -52,7 +52,7 @@ const MultiTextField = ({
           <SimpleCard key={value + index} disabled={!!disabled}>
             <Name>{getOptionLabel(value)}</Name>
             <IconContainer
-              onClick={e => {
+              onClick={(e) => {
                 e.stopPropagation();
                 if (disabled) return;
 
@@ -70,7 +70,7 @@ const MultiTextField = ({
             placeholder={isEmpty(values) ? placeholder : ''}
             disabled={disabled}
             value={input}
-            onChange={e => handleInputChange(e?.target?.value)}
+            onChange={(e) => handleInputChange(e?.target?.value)}
             onKeyDown={handleKeyDown}
           />
         )}

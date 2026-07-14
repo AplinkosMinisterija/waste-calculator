@@ -20,13 +20,14 @@ import { WasteType } from './utils/constants';
 import { buildYearOptions } from './utils/yearOptions';
 import { removeDeactivatedDangerousRows } from './utils/itemFilters';
 import { formatDateAndTime } from './utils/format';
+
 import {
   getCoefficient,
   getDumpInertSum,
   getDumpSum,
   getSum,
   getWasteStreamCode,
-  roundNumber
+  roundNumber,
 } from './utils/functions';
 import { useData } from './utils/hooks';
 import {
@@ -35,7 +36,7 @@ import {
   descriptions,
   formLabels,
   inputLabels,
-  notDangerousLabels
+  notDangerousLabels,
 } from './utils/texts';
 import {
   ButtonContainer,
@@ -51,7 +52,7 @@ import {
   styles,
   TabsContainer,
   Title,
-  YearFieldContainer
+  YearFieldContainer,
 } from './app.styles';
 import { WasteI } from './types/wastei';
 
@@ -59,16 +60,16 @@ Font.register({
   family: 'Roboto',
   fonts: [
     {
-      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf'
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf',
     },
     {
       src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf',
-      fontWeight: 600
+      fontWeight: 600,
     },
     {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf'
-    }
-  ]
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf',
+    },
+  ],
 });
 
 const RenderWastePage = ({ wastes, sum, labels, title, renderTitle, yearCof }: any) => {
@@ -267,7 +268,7 @@ const DocumentPdf = ({ data }: { data: WasteI }) => {
     totalSum,
     maxSum,
     dumpPhosphogypsumSumYearDataCof,
-    dumpPhosphogypsumSum
+    dumpPhosphogypsumSum,
   } = useData(data);
 
   return (
@@ -384,10 +385,10 @@ const DocumentPdf = ({ data }: { data: WasteI }) => {
 const WasteForm = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<WasteI>(
-    localStorage?.getItem('items') ? JSON.parse(localStorage?.getItem('items') as any) : {}
+    localStorage?.getItem('items') ? JSON.parse(localStorage?.getItem('items') as any) : {},
   );
 
-  const handleSubmit = async data => {
+  const handleSubmit = async (data) => {
     const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(JSON.stringify(data))}`;
     const link = document.createElement('a');
     link.href = jsonString;
@@ -402,7 +403,7 @@ const WasteForm = () => {
     saveAs(blob, 'dokumentas.pdf');
   };
 
-  const handleUpload = e => {
+  const handleUpload = (e) => {
     const fileReader = new FileReader();
     setLoading(true);
     fileReader.readAsText(e.target.files[0], 'UTF-8');
@@ -415,12 +416,12 @@ const WasteForm = () => {
   const tabs = [
     {
       value: 'stream',
-      label: 'Pagal srauto kodą'
+      label: 'Pagal srauto kodą',
     },
     {
       value: 'waste',
-      label: 'Pagal atliekų kodą'
-    }
+      label: 'Pagal atliekų kodą',
+    },
   ];
 
   const emptyObject = {
@@ -438,12 +439,12 @@ const WasteForm = () => {
     dangerous: [],
     dumpNotDangerous: [],
     dumpDangerous: [],
-    dumpInert: []
+    dumpInert: [],
   };
 
   const wasteLabels = {
     notDangerous: notDangerousLabels,
-    dangerous: dangerousLabels
+    dangerous: dangerousLabels,
   };
 
   const initialValues: WasteI = {
@@ -460,7 +461,7 @@ const WasteForm = () => {
     dangerous: data?.dangerous || [],
     dumpNotDangerous: data?.dumpNotDangerous || [],
     dumpDangerous: data?.dumpDangerous || [],
-    dumpInert: data?.dumpInert || []
+    dumpInert: data?.dumpInert || [],
   };
   if (loading) {
     return <LoaderComponent />;
@@ -485,10 +486,10 @@ const WasteForm = () => {
       totalSum,
       maxSum,
       dumpPhosphogypsumSum,
-      dumpPhosphogypsumSumYearDataCof
+      dumpPhosphogypsumSumYearDataCof,
     } = useData(values);
 
-    const handleSelectTab = tab => {
+    const handleSelectTab = (tab) => {
       if (isEqual(tab.value, values.type)) return;
 
       const previousFormData = localStorage.getItem('previous') || JSON.stringify(emptyObject);
@@ -523,7 +524,7 @@ const WasteForm = () => {
             </Button>
           </ButtonContainer>
           <TabsContainer>
-            {tabs.map(tab => (
+            {tabs.map((tab) => (
               <MenuButton
                 key={tab.label}
                 isSelected={isEqual(tab.value, values.type)}
@@ -538,19 +539,19 @@ const WasteForm = () => {
             <SelectField
               label={inputLabels.year}
               name="year"
-              value={yearOptions.find(option => option.label === values.yearLabel) || null}
+              value={yearOptions.find((option) => option.label === values.yearLabel) || null}
               options={yearOptions}
-              onChange={option => {
+              onChange={(option) => {
                 const includeDeactivated = option?.includeDeactivated ?? false;
                 setFieldValue(`year`, option?.year);
                 setFieldValue(`yearLabel`, option?.label);
                 setFieldValue(`includeDeactivatedCodes`, includeDeactivated);
                 setFieldValue(
                   `dangerous`,
-                  removeDeactivatedDangerousRows(values.dangerous, includeDeactivated)
+                  removeDeactivatedDangerousRows(values.dangerous, includeDeactivated),
                 );
               }}
-              getOptionLabel={option => option?.label}
+              getOptionLabel={(option) => option?.label}
             />
           </YearFieldContainer>
           <SimpleContainer>
@@ -574,14 +575,14 @@ const WasteForm = () => {
               <TextField
                 label={inputLabels.companyName}
                 value={values.companyName}
-                onChange={value => {
+                onChange={(value) => {
                   setFieldValue(`companyName`, value);
                 }}
               />
               <TextField
                 label={inputLabels.companyCode}
                 value={values.companyCode}
-                onChange={value => {
+                onChange={(value) => {
                   setFieldValue(`companyCode`, value);
                 }}
               />
@@ -589,14 +590,14 @@ const WasteForm = () => {
               <TextField
                 label={inputLabels.company}
                 value={values.company}
-                onChange={value => {
+                onChange={(value) => {
                   setFieldValue(`company`, value);
                 }}
               />
               <TextField
                 label={inputLabels.pollutionNumber}
                 value={values.pollutionNumber}
-                onChange={value => {
+                onChange={(value) => {
                   setFieldValue(`pollutionNumber`, value);
                 }}
               />
@@ -712,7 +713,7 @@ const WasteForm = () => {
                   <TextField
                     label={inputLabels.fullName}
                     value={values.name}
-                    onChange={value => {
+                    onChange={(value) => {
                       setFieldValue(`name`, value);
                     }}
                   />

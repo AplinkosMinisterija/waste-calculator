@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const AppLogo = () => {
   const navigate = useNavigate();
   return (
-    <LogoContainer onClick={() => navigate("/")}>
+    <LogoContainer onClick={() => navigate('/')}>
       <Logo src="/logo.svg" />
     </LogoContainer>
   );

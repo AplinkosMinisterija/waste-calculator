@@ -1,6 +1,6 @@
-import { map } from "lodash";
-import styled from "styled-components";
-import FieldWrapper from "../fields/components/FieldWrapper";
+import { map } from 'lodash';
+import styled from 'styled-components';
+import FieldWrapper from '../fields/components/FieldWrapper';
 
 export interface ToggleButtonProps {
   options: any[];
@@ -19,7 +19,7 @@ const ButtonsGroup = ({
   isSelected,
   className,
   label,
-  getOptionLabel
+  getOptionLabel,
 }: ToggleButtonProps) => {
   return (
     <div>
@@ -62,7 +62,7 @@ const StyledButton = styled.button<{
   align-items: center;
   height: 40px;
   padding: 12px;
-  border-color: ${({ selected, theme }) => (selected ? theme.colors.primary : "#cdd5df")};
+  border-color: ${({ selected, theme }) => (selected ? theme.colors.primary : '#cdd5df')};
   border-style: solid;
   font-weight: normal;
   font-size: 1.4rem;
@@ -71,15 +71,15 @@ const StyledButton = styled.button<{
   :hover {
     opacity: ${({ disabled }) => (disabled ? 0.48 : 0.6)};
   }
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  background-color: ${({ selected, theme }) => (selected ? theme.colors.primary + "1F" : "white")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  background-color: ${({ selected, theme }) => (selected ? theme.colors.primary + '1F' : 'white')};
   color: #121926;
   justify-content: center;
   border-width: 1px;
-  border-top-left-radius: ${({ left }) => (left ? "4px" : 0)};
-  border-bottom-left-radius: ${({ left }) => (left ? "4px" : 0)};
-  border-top-right-radius: ${({ right }) => (right ? "4px" : 0)};
-  border-bottom-right-radius: ${({ right }) => (right ? "4px" : 0)};
+  border-top-left-radius: ${({ left }) => (left ? '4px' : 0)};
+  border-bottom-left-radius: ${({ left }) => (left ? '4px' : 0)};
+  border-top-right-radius: ${({ right }) => (right ? '4px' : 0)};
+  border-bottom-right-radius: ${({ right }) => (right ? '4px' : 0)};
 `;
 
 export default ButtonsGroup;
