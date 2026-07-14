@@ -1,4 +1,3 @@
-import { Waste } from "../app";
 import { WasteType } from "./constants";
 import {
   getDumpInertTotalSum,
@@ -8,8 +7,9 @@ import {
   getYearCof,
   roundNumber
 } from "./functions";
+import {WasteI} from "../types/wastei";
 
-export const useData = (data: Waste) => {
+export const useData = (data: WasteI) => {
   const notDangerousSumYearDataCof = getYearCof(
     WasteType.NOT_DANGEROUS,
     data.year

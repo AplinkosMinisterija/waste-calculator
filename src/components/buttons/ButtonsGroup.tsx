@@ -1,6 +1,5 @@
 import { map } from "lodash";
 import styled from "styled-components";
-import { device } from "../../styles";
 import FieldWrapper from "../fields/components/FieldWrapper";
 
 export interface ToggleButtonProps {
@@ -63,8 +62,7 @@ const StyledButton = styled.button<{
   align-items: center;
   height: 40px;
   padding: 12px;
-  border-color: ${({ selected, theme }) =>
-    selected ? theme.colors.primary : "#cdd5df"};
+  border-color: ${({ selected, theme }) => (selected ? theme.colors.primary : "#cdd5df")};
   border-style: solid;
   font-weight: normal;
   font-size: 1.4rem;
@@ -74,8 +72,7 @@ const StyledButton = styled.button<{
     opacity: ${({ disabled }) => (disabled ? 0.48 : 0.6)};
   }
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  background-color: ${({ selected, theme }) =>
-    selected ? theme.colors.primary + "1F" : "white"};
+  background-color: ${({ selected, theme }) => (selected ? theme.colors.primary + "1F" : "white")};
   color: #121926;
   justify-content: center;
   border-width: 1px;

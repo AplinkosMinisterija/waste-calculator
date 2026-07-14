@@ -3,7 +3,11 @@ import { isEmpty, isEqual } from "lodash";
 import { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { stream, waste } from "../../utils/data";
-import { getCoefficient, getSum } from "../../utils/functions";
+import {
+  getCoefficient,
+  getSum,
+  getWasteStreamCode
+} from "../../utils/functions";
 import { bottomLabels, buttonsTitles } from "../../utils/texts";
 import { validateWaste } from "../../utils/validation";
 import Button from "../buttons/Button";
@@ -39,7 +43,7 @@ const WasteContainer = ({
       return (
         <TableRow>
           <Cell>{index + 1}</Cell>
-          <Cell>{value?.streamCode?.id}</Cell>
+          <Cell>{getWasteStreamCode(value)}</Cell>
           <Cell>{value?.wasteCode?.id}</Cell>
           <Cell>{yearCoeffiCient}</Cell>
           <Cell>{value?.quantity}</Cell>
@@ -152,7 +156,7 @@ const WasteContainer = ({
 
                     const wastes = waste.filter((item) =>
                       isEqual(item.type, wasteType)
-                    );
+                    ).sort((a, b) => a.id.localeCompare(b.id));
 
                     const handleSetWasteCode = (wasteCode) => {
                       setFieldValue(`wasteCode`, wasteCode);

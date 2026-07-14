@@ -1,4 +1,7 @@
 import { WasteType } from "./constants";
+import { StreamItem, WasteItem } from "../types/waste";
+import { TS_06_CODES } from "./TS-06-codes";
+
 export const yearData = [
   { year: 2024, coefficient: 66.17, type: WasteType.NOT_DANGEROUS },
   { year: 2025, coefficient: 66.17, type: WasteType.NOT_DANGEROUS },
@@ -212,8 +215,8 @@ export const stream: StreamItem[] = [
     type: WasteType.DANGEROUS
   },
   {
-    id: "TS-06 (visiems, išskyrus 09 01 11*; 16 06 01*; 16 06 02*; 16 06 04*; 16 06 06*; 16 06 07*; 16 06 08*; 16 06 09*; 16 06 10*; 16 06 11*; 16 06 13*; 16 06 14*; 16 06 22*; 16 06 24*; 16 06 26*; 16 06 28*; 16 06 30*; 16 06 32*; 16 06 34*; 19 02 12*; 19 02 13*; 19 14 01*; 19 14 02*; 19 14 03*; 19 14 04*; 19 14 05*; 19 14 06*; 19 14 07*; 20 01 33*; 20 01 42*; 20 01 43*)",
-    R: 1,
+    id: TS_06_CODES,
+    R: 0.01,
     D: 1,
     S: 1,
     type: WasteType.DANGEROUS
@@ -424,14 +427,14 @@ export const stream: StreamItem[] = [
   },
   {
     id: "TS-06 (20 01 42*)",
-    R: 1,
+    R: 0.01,
     D: 1,
     S: 1,
     type: WasteType.DANGEROUS
   },
   {
     id: "TS-06 (20 01 43*)",
-    R: 1,
+    R: 0.01,
     D: 1,
     S: 1,
     type: WasteType.DANGEROUS
@@ -915,6 +918,7 @@ export const waste: WasteItem[] = [
   { streamId: "0214", id: "18 01 07", type: WasteType.NOT_DANGEROUS },
   { streamId: "0214", id: "18 02 06", type: WasteType.NOT_DANGEROUS },
   { streamId: "0214", id: "20 01 30", type: WasteType.NOT_DANGEROUS },
+  { streamId: "0214", id: "20 01 33", type: WasteType.NOT_DANGEROUS },
   { streamId: "0231", id: "16 05 09", type: WasteType.NOT_DANGEROUS },
   { streamId: "0311", id: "05 01 17", type: WasteType.NOT_DANGEROUS },
   { streamId: "0311", id: "06 13 03", type: WasteType.NOT_DANGEROUS },
@@ -1051,7 +1055,6 @@ export const waste: WasteItem[] = [
   { streamId: "0823", id: "09 01 12", type: WasteType.NOT_DANGEROUS },
   { streamId: "0823", id: "16 02 14", type: WasteType.NOT_DANGEROUS },
   { streamId: "0823", id: "20 01 36", type: WasteType.NOT_DANGEROUS },
-  { streamId: "0841", id: "16 06 04", type: WasteType.NOT_DANGEROUS },
   { streamId: "0841", id: "16 06 05", type: WasteType.NOT_DANGEROUS },
   { streamId: "0841", id: "20 01 34", type: WasteType.NOT_DANGEROUS },
   { streamId: "0841", id: "020 1 34", type: WasteType.NOT_DANGEROUS },
@@ -1666,57 +1669,48 @@ export const waste: WasteItem[] = [
   { streamId: "TS-12", id: "11 05 04", type: WasteType.DANGEROUS },
   { streamId: "TS-12", id: "19 08 08", type: WasteType.DANGEROUS },
   {
-    streamId:
-      "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
+    streamId: "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
     id: "05 07 01",
     type: WasteType.DANGEROUS
   },
   {
-    streamId:
-      "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
+    streamId: "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
     id: "06 04 04",
     type: WasteType.DANGEROUS
   },
   {
-    streamId:
-      "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
+    streamId: "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
     id: "06 07 03",
     type: WasteType.DANGEROUS
   },
   {
-    streamId:
-      "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
+    streamId: "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
     id: "10 14 01",
     type: WasteType.DANGEROUS
   },
   {
-    streamId:
-      "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
+    streamId: "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
     id: "16 01 08",
     type: WasteType.DANGEROUS
   },
   {
-    streamId:
-      "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
+    streamId: "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
     id: "16 03 07",
     type: WasteType.DANGEROUS
   },
   { streamId: "TS-13 (16 06 03*)", id: "16 06 03", type: WasteType.DANGEROUS },
   {
-    streamId:
-      "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
+    streamId: "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
     id: "17 09 01",
     type: WasteType.DANGEROUS
   },
   {
-    streamId:
-      "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
+    streamId: "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
     id: "18 01 10",
     type: WasteType.DANGEROUS
   },
   {
-    streamId:
-      "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
+    streamId: "TS-13 (visiems šio srauto atliekų kodams, išskyrus 16 06 03* ir 20 01 21*)",
     id: "19 03 08",
     type: WasteType.DANGEROUS
   },

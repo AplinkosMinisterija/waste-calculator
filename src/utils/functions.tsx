@@ -42,6 +42,12 @@ export const getCoefficient = (code, streamCode) => {
   return "";
 };
 
+export const getWasteStreamCode = (wasteRow) =>
+  wasteRow?.wasteCode?.streamId ??
+  wasteRow?.streamCode?.streamId ??
+  wasteRow?.streamCode?.id ??
+  "";
+
 export const getTotalSum = (data, yearCof) =>
   roundNumber(
     data?.reduce(

@@ -1,40 +1,34 @@
-import {
-  Document,
-  Font,
-  Page,
-  pdf,
-  StyleSheet,
-  Text,
-  View
-} from "@react-pdf/renderer";
-import { saveAs } from "file-saver";
-import { Form, Formik } from "formik";
-import { isEqual } from "lodash";
-import { useState } from "react";
-import styled from "styled-components";
-import Button from "./components/buttons/Button";
-import SimpleContainer from "./components/containers/SimpleContainer";
-import NumericTextField from "./components/fields/NumericTextField";
-import SelectField from "./components/fields/SelectField";
-import TextField from "./components/fields/TextField";
-import DefaultLayout from "./components/layouts/DefaultLayout";
-import DumpDangerousContainer from "./components/other/DumpDangerous";
-import DumpInertContainer from "./components/other/DumpInertContainer";
-import DumpNotDangerousContainer from "./components/other/DumpNotDangerous";
-import DumpPhosphogypsum from "./components/other/DumpPhosphogypsum";
-import LoaderComponent from "./components/other/LoaderComponent";
-import WasteContainer from "./components/other/WasteContainer";
-import { WasteType } from "./utils/constants";
-import { yearData } from "./utils/data";
-import { formatDateAndTime } from "./utils/format";
+import { Document, Font, Page, pdf, Text, View } from '@react-pdf/renderer';
+import { saveAs } from 'file-saver';
+import { Form, Formik } from 'formik';
+import { isEqual } from 'lodash';
+import { useState } from 'react';
+
+import styled from 'styled-components';
+import Button from './components/buttons/Button';
+import SimpleContainer from './components/containers/SimpleContainer';
+import NumericTextField from './components/fields/NumericTextField';
+import SelectField from './components/fields/SelectField';
+import TextField from './components/fields/TextField';
+import DefaultLayout from './components/layouts/DefaultLayout';
+import DumpDangerousContainer from './components/other/DumpDangerous';
+import DumpInertContainer from './components/other/DumpInertContainer';
+import DumpNotDangerousContainer from './components/other/DumpNotDangerous';
+import DumpPhosphogypsum from './components/other/DumpPhosphogypsum';
+import LoaderComponent from './components/other/LoaderComponent';
+import WasteContainer from './components/other/WasteContainer';
+import { WasteType } from './utils/constants';
+import { yearData } from './utils/data';
+import { formatDateAndTime } from './utils/format';
 import {
   getCoefficient,
   getDumpInertSum,
   getDumpSum,
   getSum,
+  getWasteStreamCode,
   roundNumber
-} from "./utils/functions";
-import { useData } from "./utils/hooks";
+} from './utils/functions';
+import { useData } from './utils/hooks';
 import {
   buttonsTitles,
   dangerousLabels,
@@ -42,154 +36,27 @@ import {
   formLabels,
   inputLabels,
   notDangerousLabels
-} from "./utils/texts";
+} from './utils/texts';
+import { styles } from './app.styles';
+import { WasteI } from './types/wastei';
 
-export interface Waste {
-  type: string;
-  name: string;
-  company: string;
-  pollutionNumber: string;
-  companyCode: string;
-  companyName: string;
-  year?: number;
-  notDangerous?: {
-    streamCode?: {
-      id: string | number;
-      RCoefficient: number;
-      DCoefficient: number;
-      type: string;
-    };
-    wasteCode?: {
-      streamId: string | number;
-      id: string | number;
-      type: string;
-    };
-    quantity?: string;
-    code?: string;
-  }[];
-  dangerous?: {
-    streamCode?: {
-      id: string | number;
-      RCoefficient: number;
-      DCoefficient: number;
-      type: string;
-    };
-    wasteCode?: {
-      streamId: string | number;
-      id: string | number;
-      type: string;
-    };
-    quantity?: string;
-    code?: string;
-  }[];
-  dumpNotDangerous?: {
-    quantity?: string;
-    setAside?: string;
-  }[];
-  dumpDangerous?: {
-    quantity?: string;
-    setAside?: string;
-  }[];
-  dumpInert?: {
-    quantity?: string;
-    setAside?: string;
-  }[];
-  phosphogypsum?: {
-    quantity?: string;
-  }[];
-}
 Font.register({
-  family: "Roboto",
+  family: 'Roboto',
   fonts: [
     {
-      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf"
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-regular.ttf'
     },
     {
-      src: "https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf",
+      src: 'https://cdn.jsdelivr.net/npm/open-sans-all@0.1.3/fonts/open-sans-600.ttf',
       fontWeight: 600
     },
     {
-      src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf"
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf'
     }
   ]
 });
 
-const styles = StyleSheet.create({
-  page: {
-    fontFamily: "Roboto",
-    padding: "0 12px"
-  },
-  table: {
-    width: "100%",
-    borderWidth: 2,
-    display: "flex",
-    flexDirection: "column"
-  },
-  tableRow: {
-    display: "flex",
-    flexDirection: "row"
-  },
-  nameRow: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: "12px"
-  },
-  itemRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    flexDirection: "row"
-  },
-  cell: {
-    borderWidth: 1,
-    flex: "1",
-    fontSize: "10px",
-    padding: "4px"
-  },
-  totalCell: {
-    fontSize: "10px",
-    padding: "4px"
-  },
-  title: {
-    fontSize: "10px",
-    fontWeight: "bold",
-    margin: "12px 0 4px 0px"
-  },
-  mainTitle: {
-    fontSize: "14px",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  date: {
-    fontSize: "12px",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  selectedDate: {
-    fontSize: "12px",
-    textAlign: "left"
-  },
-  label: {
-    fontSize: "12px"
-  },
-  signature: {
-    fontSize: "12px",
-    marginRight: "100px"
-  },
-  name: {
-    fontSize: "12px"
-  }
-});
-
-const RenderWastePage = ({
-  wastes,
-  sum,
-  labels,
-  title,
-  renderTitle,
-  yearCof
-}: any) => {
+const RenderWastePage = ({ wastes, sum, labels, title, renderTitle, yearCof }: any) => {
   return (
     <Page orientation="landscape" size="A4" style={styles.page}>
       {renderTitle && renderTitle}
@@ -212,7 +79,7 @@ const RenderWastePage = ({
           return (
             <View key={i} style={styles.tableRow}>
               <Text style={styles.cell}>{i + 1}</Text>
-              <Text style={styles.cell}>{row?.streamCode?.id}</Text>
+              <Text style={styles.cell}>{getWasteStreamCode(row)}</Text>
               <Text style={styles.cell}>{row?.wasteCode?.id}</Text>
               <Text style={styles.cell}>{yearCof}</Text>
               <Text style={styles.cell}>{row?.quantity}</Text>
@@ -246,7 +113,7 @@ const RenderInertWastePage = ({ wastes, sum, yearCof }) => {
           const sum = getDumpInertSum(yearCof, row?.quantity, row?.setAside);
           return (
             <View key={i} style={styles.tableRow}>
-              <Text style={styles.cell}>{i + 1}</Text>
+              <Text style={styles.cell}>{i + 1}--</Text>
               <Text style={styles.cell}>{row?.quantity}</Text>
               <Text style={styles.cell}>{yearCof}</Text>
               <Text style={styles.cell}>{row?.setAside}</Text>
@@ -269,12 +136,8 @@ const RenderDangerousWastePage = ({ wastes, sum, yearCof }) => {
       <View style={styles.table}>
         <View style={[styles.tableRow]}>
           <Text style={styles.cell}> Eil nr.</Text>
-          <Text style={styles.cell}>
-            {inputLabels.expectedToBeRemovedDumpDangerousQuantity}
-          </Text>
-          <Text style={styles.cell}>
-            {inputLabels.removedDumpDangerousQuantity}
-          </Text>
+          <Text style={styles.cell}>{inputLabels.expectedToBeRemovedDumpDangerousQuantity}</Text>
+          <Text style={styles.cell}>{inputLabels.removedDumpDangerousQuantity}</Text>
           <Text style={styles.cell}>{inputLabels.nk1}</Text>
           <Text style={styles.cell}>{inputLabels.nk2}</Text>
           <Text style={styles.cell}>{inputLabels.setAside}</Text>
@@ -312,9 +175,7 @@ const RenderPhosphogypsumWastePage = ({ wastes, sum, yearCof }) => {
           <Text style={styles.cell}>
             {inputLabels.expectedToBeRemovedDumpPhosphogypsumQuantity}
           </Text>
-          <Text style={styles.cell}>
-            {inputLabels.removedDumpPhosphogypsumQuantity}
-          </Text>
+          <Text style={styles.cell}>{inputLabels.removedDumpPhosphogypsumQuantity}</Text>
           <Text style={styles.cell}>{inputLabels.nf1}</Text>
           <Text style={styles.cell}>{inputLabels.nf2}</Text>
           <Text style={styles.cell}>{inputLabels.totalSum}</Text>
@@ -347,12 +208,8 @@ const RenderNotDangerousWastePage = ({ wastes, sum, yearCof }) => {
       <View style={styles.table}>
         <View style={[styles.tableRow]}>
           <Text style={styles.cell}> Eil nr.</Text>
-          <Text style={styles.cell}>
-            {inputLabels.expectedToBeRemovedDumpNotDangerousQuantity}
-          </Text>
-          <Text style={styles.cell}>
-            {inputLabels.removedDumpNotDangerousQuantity}
-          </Text>
+          <Text style={styles.cell}>{inputLabels.expectedToBeRemovedDumpNotDangerousQuantity}</Text>
+          <Text style={styles.cell}>{inputLabels.removedDumpNotDangerousQuantity}</Text>
           <Text style={styles.cell}>{inputLabels.ns1}</Text>
           <Text style={styles.cell}>{inputLabels.ns2}</Text>
           <Text style={styles.cell}>{inputLabels.setAside}</Text>
@@ -363,9 +220,9 @@ const RenderNotDangerousWastePage = ({ wastes, sum, yearCof }) => {
           return (
             <View key={i} style={styles.tableRow}>
               <Text style={styles.cell}>{i + 1}</Text>
-              <Text style={styles.cell}>{row?.quantity.s1}</Text>
-              <Text style={styles.cell}>{row?.quantity.s2}</Text>
-              <Text style={styles.cell}>{yearCof.s1}</Text>
+              <Text style={styles.cell}>{row?.quantity.s1}222</Text>
+              <Text style={styles.cell}>{row?.quantity.s2}33</Text>
+              <Text style={styles.cell}>{yearCof.s1}44</Text>
               <Text style={styles.cell}>{yearCof.s2}</Text>
               <Text style={styles.cell}>{row?.setAside}</Text>
               <Text style={styles.cell}>{sum}</Text>
@@ -380,7 +237,7 @@ const RenderNotDangerousWastePage = ({ wastes, sum, yearCof }) => {
   );
 };
 
-const DocumentPdf = ({ data }: { data: Waste }) => {
+const DocumentPdf = ({ data }: { data: WasteI }) => {
   const {
     notDangerousSum,
     notDangerousSumYearDataCof,
@@ -405,9 +262,7 @@ const DocumentPdf = ({ data }: { data: Waste }) => {
           <>
             <Text style={styles.mainTitle}>{formLabels.formMainTitle}</Text>
             <Text style={styles.date}>{formatDateAndTime(new Date())}</Text>
-            <Text style={styles.selectedDate}>
-              Pasirinkti skaičiavimai metams: {data.year}
-            </Text>
+            <Text style={styles.selectedDate}>Pasirinkti skaičiavimai metams: {data.year}</Text>
           </>
         }
         yearCof={notDangerousSumYearDataCof}
@@ -416,6 +271,7 @@ const DocumentPdf = ({ data }: { data: Waste }) => {
         sum={notDangerousSum}
         labels={notDangerousLabels}
       />
+      12
       <RenderWastePage
         title={formLabels?.tableDangerous}
         yearCof={dangerousSumYearDataCof}
@@ -511,19 +367,15 @@ const DocumentPdf = ({ data }: { data: Waste }) => {
 
 const WasteForm = () => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<Waste>(
-    localStorage?.getItem("items")
-      ? JSON.parse(localStorage?.getItem("items") as any)
-      : {}
+  const [data, setData] = useState<WasteI>(
+    localStorage?.getItem('items') ? JSON.parse(localStorage?.getItem('items') as any) : {}
   );
 
-  const handleSubmit = async (data) => {
-    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
-      JSON.stringify(data)
-    )}`;
-    const link = document.createElement("a");
+  const handleSubmit = async data => {
+    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(JSON.stringify(data))}`;
+    const link = document.createElement('a');
     link.href = jsonString;
-    link.download = "duomenys.json";
+    link.download = 'duomenys.json';
 
     link.click();
 
@@ -531,13 +383,13 @@ const WasteForm = () => {
     const asPdf = pdf();
     asPdf.updateContainer(doc);
     const blob = await asPdf.toBlob();
-    saveAs(blob, "dokumentas.pdf");
+    saveAs(blob, 'dokumentas.pdf');
   };
 
-  const handleUpload = (e) => {
+  const handleUpload = e => {
     const fileReader = new FileReader();
     setLoading(true);
-    fileReader.readAsText(e.target.files[0], "UTF-8");
+    fileReader.readAsText(e.target.files[0], 'UTF-8');
     fileReader.onload = (e: any) => {
       setData(JSON.parse(e.target.result));
       setLoading(false);
@@ -546,23 +398,23 @@ const WasteForm = () => {
 
   const tabs = [
     {
-      value: "stream",
-      label: "Pagal srauto kodą"
+      value: 'stream',
+      label: 'Pagal srauto kodą'
     },
     {
-      value: "waste",
-      label: "Pagal atliekų kodą"
+      value: 'waste',
+      label: 'Pagal atliekų kodą'
     }
   ];
 
   const emptyObject = {
     type: data.type || tabs[0].value,
-    name: "",
-    pollutionNumber: "",
-    companyCode: "",
-    companyName: "",
-    TIPKNumber: "",
-    company: "",
+    name: '',
+    pollutionNumber: '',
+    companyCode: '',
+    companyName: '',
+    TIPKNumber: '',
+    company: '',
     year: undefined,
     notDangerous: [],
     dangerous: [],
@@ -576,13 +428,13 @@ const WasteForm = () => {
     dangerous: dangerousLabels
   };
 
-  const initialValues: Waste = {
+  const initialValues: WasteI = {
     type: data.type || tabs[0].value,
-    name: data?.name || "",
-    companyCode: data?.companyCode || "",
-    companyName: data?.companyName || "",
-    pollutionNumber: data?.pollutionNumber || "",
-    company: data?.company || "",
+    name: data?.name || '',
+    companyCode: data?.companyCode || '',
+    companyName: data?.companyName || '',
+    pollutionNumber: data?.pollutionNumber || '',
+    company: data?.company || '',
     year: data?.year || undefined,
     notDangerous: data?.notDangerous || [],
     dangerous: data?.dangerous || [],
@@ -594,12 +446,10 @@ const WasteForm = () => {
     return <LoaderComponent />;
   }
 
-  const yearOptions = yearData.filter((item) =>
-    isEqual(item.type, WasteType.DANGEROUS)
-  );
+  const yearOptions = yearData.filter(item => isEqual(item.type, WasteType.DANGEROUS));
 
   const Form = ({ values, setFieldValue, setValues }) => {
-    localStorage.setItem("items", JSON.stringify(values));
+    localStorage.setItem('items', JSON.stringify(values));
 
     const {
       notDangerousSum,
@@ -618,15 +468,14 @@ const WasteForm = () => {
       dumpPhosphogypsumSumYearDataCof
     } = useData(values);
 
-    const handleSelectTab = (tab) => {
+    const handleSelectTab = tab => {
       if (isEqual(tab.value, values.type)) return;
 
-      const previousFormData =
-        localStorage.getItem("previous") || JSON.stringify(emptyObject);
+      const previousFormData = localStorage.getItem('previous') || JSON.stringify(emptyObject);
 
       setValues(JSON.parse(previousFormData));
-      setFieldValue("type", tab.value);
-      localStorage.setItem("previous", JSON.stringify(values));
+      setFieldValue('type', tab.value);
+      localStorage.setItem('previous', JSON.stringify(values));
     };
 
     return (
@@ -654,7 +503,7 @@ const WasteForm = () => {
             </Button>
           </ButtonContainer>
           <TabsContainer>
-            {tabs.map((tab) => (
+            {tabs.map(tab => (
               <MenuButton
                 key={tab.label}
                 isSelected={isEqual(tab.value, values.type)}
@@ -671,21 +520,19 @@ const WasteForm = () => {
               name="year"
               value={values.year}
               options={yearOptions}
-              onChange={(option) => {
+              onChange={option => {
                 setFieldValue(`year`, option?.year || option);
               }}
-              getOptionLabel={(option) => option?.year || option}
+              getOptionLabel={option => option?.year || option}
             />
           </ButtonContainer>
           <SimpleContainer>
             <div>
-              Tvarkos aprašas* - Atliekas naudojančių ar šalinančių įmonių
-              prievolių įvykdymo užtikrinimo sumos vienai tonai numatomų naudoti
-              ar šalinti pavojingųjų ar nepavojingųjų atliekų dydžio nustatymo
-              ir prievolių įvykdymo užtikrinimo sumos apskaičiavimo,
-              atsižvelgiant į numatomų naudoti ar šalinti pavojingųjų ar
-              nepavojingųjų atliekų rūšis, kiekį ir tvarkymo būdus, tvarkos
-              aprašas:{" "}
+              Tvarkos aprašas* - Atliekas naudojančių ar šalinančių įmonių prievolių įvykdymo
+              užtikrinimo sumos vienai tonai numatomų naudoti ar šalinti pavojingųjų ar
+              nepavojingųjų atliekų dydžio nustatymo ir prievolių įvykdymo užtikrinimo sumos
+              apskaičiavimo, atsižvelgiant į numatomų naudoti ar šalinti pavojingųjų ar
+              nepavojingųjų atliekų rūšis, kiekį ir tvarkymo būdus, tvarkos aprašas:{' '}
               <a
                 rel="noreferrer"
                 target="_blank"
@@ -700,14 +547,14 @@ const WasteForm = () => {
               <TextField
                 label={inputLabels.companyName}
                 value={values.companyName}
-                onChange={(value) => {
+                onChange={value => {
                   setFieldValue(`companyName`, value);
                 }}
               />
               <TextField
                 label={inputLabels.companyCode}
                 value={values.companyCode}
-                onChange={(value) => {
+                onChange={value => {
                   setFieldValue(`companyCode`, value);
                 }}
               />
@@ -715,14 +562,14 @@ const WasteForm = () => {
               <TextField
                 label={inputLabels.company}
                 value={values.company}
-                onChange={(value) => {
+                onChange={value => {
                   setFieldValue(`company`, value);
                 }}
               />
               <TextField
                 label={inputLabels.pollutionNumber}
                 value={values.pollutionNumber}
-                onChange={(value) => {
+                onChange={value => {
                   setFieldValue(`pollutionNumber`, value);
                 }}
               />
@@ -735,7 +582,7 @@ const WasteForm = () => {
                 yearCoeffiCient={notDangerousSumYearDataCof}
                 wasteType={WasteType.NOT_DANGEROUS}
                 formType={values.type}
-                name={"notDangerous"}
+                name={'notDangerous'}
                 labels={wasteLabels.notDangerous}
                 sum={notDangerousSum}
                 title={formLabels.tableNotDangerous}
@@ -747,33 +594,33 @@ const WasteForm = () => {
                 wasteType={WasteType.DANGEROUS}
                 labels={wasteLabels.dangerous}
                 sum={dangerousSum}
-                name={"dangerous"}
+                name={'dangerous'}
                 title={formLabels.tableDangerous}
               />
               <DumpNotDangerousContainer
                 values={values.dumpNotDangerous}
                 yearCoeffCient={dumpNotDangerousSumYearDataCof}
-                name={"dumpNotDangerous"}
+                name={'dumpNotDangerous'}
                 sum={dumpNotDangerousSum}
               />
               <DumpDangerousContainer
                 values={values.dumpDangerous}
                 yearCoeffCient={dumpDangerousSumYearDataCof}
-                name={"dumpDangerous"}
+                name={'dumpDangerous'}
                 sum={dumpDangerousSum}
               />
               <DumpInertContainer
                 values={values.dumpInert}
                 yearCoeffCient={dumpInertSumYearDataCof}
                 sum={dumpInertSum}
-                name={"dumpInert"}
+                name={'dumpInert'}
                 title={formLabels.tableDumpInert}
                 label={inputLabels.dumpInertQuantity}
               />
 
               <DumpPhosphogypsum
                 values={values.phosphogypsum}
-                name={"phosphogypsum"}
+                name={'phosphogypsum'}
                 sum={dumpPhosphogypsumSum}
                 yearCoeffCient={dumpPhosphogypsumSumYearDataCof}
               />
@@ -836,7 +683,7 @@ const WasteForm = () => {
                   <TextField
                     label={inputLabels.fullName}
                     value={values.name}
-                    onChange={(value) => {
+                    onChange={value => {
                       setFieldValue(`name`, value);
                     }}
                   />
@@ -856,17 +703,9 @@ const WasteForm = () => {
 
   return (
     <DefaultLayout>
-      <Formik
-        enableReinitialize={false}
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-      >
+      <Formik enableReinitialize={false} initialValues={initialValues} onSubmit={handleSubmit}>
         {({ values, setFieldValue, setValues }) => (
-          <Form
-            values={values}
-            setFieldValue={setFieldValue}
-            setValues={setValues}
-          />
+          <Form values={values} setFieldValue={setFieldValue} setValues={setValues} />
         )}
       </Formik>
     </DefaultLayout>
@@ -938,14 +777,13 @@ const InnerContainer = styled.div`
 `;
 
 const MenuButton = styled.div<{ isSelected: boolean }>`
-  color: ${({ theme, isSelected }) =>
-    isSelected ? "white" : theme.colors.primary};
+  color: ${({ theme, isSelected }) => (isSelected ? 'white' : theme.colors.primary)};
   font-size: 1.4rem;
   cursor: pointer;
   position: relative;
   padding: 0 0 4px 0;
   background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.colors.secondary : "transparent"};
+    isSelected ? theme.colors.secondary : 'transparent'};
   padding: 8px 16px;
   border-radius: 24px;
   text-align: center;
