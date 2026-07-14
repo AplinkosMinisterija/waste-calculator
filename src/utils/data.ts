@@ -1,4 +1,4 @@
-import { WasteType } from "./constants";
+import { TS_06_DEACTIVATION_DATE, WasteType } from "./constants";
 import { StreamItem, WasteItem } from "../types/waste";
 import { TS_06_CODES } from "./TS-06-codes";
 
@@ -423,7 +423,7 @@ export const stream: StreamItem[] = [
     D: 1,
     S: 1,
     type: WasteType.DANGEROUS,
-    deactivateOn: "2026-11-09"
+    deactivateOn: TS_06_DEACTIVATION_DATE
   },
   {
     id: "TS-06 (20 01 42*)",
@@ -1567,7 +1567,7 @@ export const waste: WasteItem[] = [
     streamId: "TS-06 (20 01 33*)",
     id: "20 01 33",
     type: WasteType.DANGEROUS,
-    deactivateOn: "2026-11-09"
+    deactivateOn: TS_06_DEACTIVATION_DATE
   },
   { streamId: "TS-06 (20 01 42*)", id: "20 01 42", type: WasteType.DANGEROUS },
   { streamId: "TS-06 (20 01 43*)", id: "20 01 43", type: WasteType.DANGEROUS },

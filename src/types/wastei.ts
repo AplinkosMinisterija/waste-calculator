@@ -6,6 +6,10 @@ export interface WasteI {
     companyCode: string;
     companyName: string;
     year?: number;
+    // Label of the selected year period (distinguishes the two 2026 halves).
+    yearLabel?: string;
+    // Whether the selected period still offers codes marked with `deactivateOn`.
+    includeDeactivatedCodes?: boolean;
     notDangerous?: {
         streamCode?: {
             id: string | number;

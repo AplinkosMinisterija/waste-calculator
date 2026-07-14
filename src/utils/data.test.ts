@@ -1,6 +1,8 @@
 import { stream, waste } from "./data";
-import { isActiveItem } from "./itemFilters";
+import { isAvailableForPeriod } from "./itemFilters";
 import { boldCodes } from "../defaults/boldCodes";
+import { TS_06_DEACTIVATION_DATE } from "./constants";
+import { buildYearOptions, YEAR_PERIOD_LABELS } from "./yearOptions";
 
 describe("TS-06 requirements", () => {
   it("contains combined TS-06 entry excluding all highlighted codes", () => {
@@ -34,17 +36,66 @@ describe("TS-06 requirements", () => {
     });
   });
 
-  it("deactivates 20 01 33 after 2026-11-09", () => {
+  it("marks 20 01 33 with the shared deactivation date", () => {
     const streamItem = stream.find(item => item.id === "TS-06 (20 01 33*)");
     const wasteItem = waste.find(item => item.streamId === "TS-06 (20 01 33*)");
 
-    expect(streamItem?.deactivateOn).toBe("2026-11-09");
-    expect(wasteItem?.deactivateOn).toBe("2026-11-09");
+    expect(streamItem?.deactivateOn).toBe(TS_06_DEACTIVATION_DATE);
+    expect(wasteItem?.deactivateOn).toBe(TS_06_DEACTIVATION_DATE);
+  });
 
-    const before = new Date("2026-11-08T12:00:00Z");
-    const onCutoff = new Date("2026-11-09T00:00:00Z");
+  it("offers 20 01 33 before the cutoff period and hides it after", () => {
+    const streamItem = stream.find(item => item.id === "TS-06 (20 01 33*)")!;
+    const wasteItem = waste.find(item => item.streamId === "TS-06 (20 01 33*)")!;
 
-    expect(isActiveItem(streamItem!, before)).toBe(true);
-    expect(isActiveItem(streamItem!, onCutoff)).toBe(false);
+    // includeDeactivated === true -> available
+    expect(isAvailableForPeriod(streamItem, true)).toBe(true);
+    expect(isAvailableForPeriod(wasteItem, true)).toBe(true);
+
+    // includeDeactivated === false -> hidden
+    expect(isAvailableForPeriod(streamItem, false)).toBe(false);
+    expect(isAvailableForPeriod(wasteItem, false)).toBe(false);
+  });
+
+  it("keeps non-deactivated items available regardless of period", () => {
+    const plainItem = stream.find(item => !item.deactivateOn)!;
+
+    expect(isAvailableForPeriod(plainItem, true)).toBe(true);
+    expect(isAvailableForPeriod(plainItem, false)).toBe(true);
+  });
+});
+
+describe("year options", () => {
+  const options = buildYearOptions();
+
+  it("splits 2026 into a before- and after-cutoff period", () => {
+    const yearOptions2026 = options.filter(option => option.year === 2026);
+
+    expect(yearOptions2026).toHaveLength(2);
+    expect(yearOptions2026.map(option => option.label)).toEqual([
+      YEAR_PERIOD_LABELS.beforeCutoff,
+      YEAR_PERIOD_LABELS.afterCutoff
+    ]);
+  });
+
+  it("includes deactivated codes only for the before-cutoff 2026 period", () => {
+    const before = options.find(
+      option => option.label === YEAR_PERIOD_LABELS.beforeCutoff
+    );
+    const after = options.find(
+      option => option.label === YEAR_PERIOD_LABELS.afterCutoff
+    );
+
+    expect(before?.includeDeactivated).toBe(true);
+    expect(after?.includeDeactivated).toBe(false);
+  });
+
+  it("includes deactivated codes for years before the split and excludes them after", () => {
+    expect(options.find(option => option.year === 2025)?.includeDeactivated).toBe(
+      true
+    );
+    expect(options.find(option => option.year === 2027)?.includeDeactivated).toBe(
+      false
+    );
   });
 });

@@ -15,6 +15,14 @@ export const isActiveItem = (item: ActiveAware, now: Date = new Date()) => {
 
 };
 
+// Availability is driven by the selected year period, not the current date.
+// Items carrying a `deactivateOn` marker are only offered when the chosen
+// period is before that deactivation (includeDeactivated === true).
+export const isAvailableForPeriod = (
+  item: ActiveAware,
+  includeDeactivated: boolean
+) => (item?.deactivateOn ? includeDeactivated : true);
+
 export const sortByCode = <T extends { id: string | number }>(
   a: T,
   b: T
