@@ -18,6 +18,7 @@ import LoaderComponent from './components/other/LoaderComponent'
 import WasteContainer from './components/other/WasteContainer'
 import { WasteType } from './utils/constants'
 import { buildYearOptions } from './utils/yearOptions'
+import { removeDeactivatedDangerousRows } from './utils/itemFilters'
 import { formatDateAndTime } from './utils/format'
 import {
   getCoefficient,
@@ -541,9 +542,14 @@ const WasteForm = () => {
               value={yearOptions.find(option => option.label === values.yearLabel) || null}
               options={yearOptions}
               onChange={option => {
+                const includeDeactivated = option?.includeDeactivated ?? false
                 setFieldValue(`year`, option?.year)
                 setFieldValue(`yearLabel`, option?.label)
-                setFieldValue(`includeDeactivatedCodes`, option?.includeDeactivated ?? false)
+                setFieldValue(`includeDeactivatedCodes`, includeDeactivated)
+                setFieldValue(
+                  `dangerous`,
+                  removeDeactivatedDangerousRows(values.dangerous, includeDeactivated)
+                )
               }}
               getOptionLabel={option => option?.label}
             />

@@ -1,4 +1,5 @@
 import {StreamItem, WasteItem} from "../types/waste";
+import {stream} from "./data";
 
 type ActiveAware = Pick<StreamItem, "activeFrom" | "deactivateOn"> |
   Pick<WasteItem, "activeFrom" | "deactivateOn">;
@@ -22,6 +23,27 @@ export const isAvailableForPeriod = (
   item: ActiveAware,
   includeDeactivated: boolean
 ) => (item?.deactivateOn ? includeDeactivated : true);
+
+// Stream-code ids that carry a `deactivateOn` marker (e.g. "TS-06 (20 01 33*)").
+// These are no longer valid once the chosen period is on/after the cutoff.
+const deactivatedStreamIds = new Set(
+  stream.filter(item => item.deactivateOn).map(item => String(item.id))
+);
+
+// Drop dangerous rows whose selected stream code has been deactivated. Applied
+// when the chosen year period no longer offers deactivated codes
+// (includeDeactivated === false); otherwise the list is returned unchanged.
+export const removeDeactivatedDangerousRows = <
+  T extends { streamCode?: { id?: string | number } }
+>(
+  rows: T[] | undefined,
+  includeDeactivated: boolean
+): T[] => {
+  if (!rows || includeDeactivated) return rows ?? [];
+  return rows.filter(
+    row => !deactivatedStreamIds.has(String(row?.streamCode?.id))
+  );
+};
 
 export const sortByCode = <T extends { id: string | number }>(
   a: T,

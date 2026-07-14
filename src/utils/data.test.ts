@@ -1,5 +1,8 @@
 import { stream, waste } from "./data";
-import { isAvailableForPeriod } from "./itemFilters";
+import {
+  isAvailableForPeriod,
+  removeDeactivatedDangerousRows
+} from "./itemFilters";
 import { boldCodes } from "../defaults/boldCodes";
 import { TS_06_DEACTIVATION_DATE } from "./constants";
 import { buildYearOptions, YEAR_PERIOD_LABELS } from "./yearOptions";
@@ -97,5 +100,29 @@ describe("year options", () => {
     expect(options.find(option => option.year === 2027)?.includeDeactivated).toBe(
       false
     );
+  });
+});
+
+describe("removeDeactivatedDangerousRows", () => {
+  const deactivatedRow = { streamCode: { id: "TS-06 (20 01 33*)" } };
+  const validRow = { streamCode: { id: "TS-06 (20 01 42*)" } };
+
+  it("drops deactivated stream codes when the period excludes them", () => {
+    const result = removeDeactivatedDangerousRows(
+      [validRow, deactivatedRow],
+      false
+    );
+
+    expect(result).toEqual([validRow]);
+  });
+
+  it("keeps all rows when the period still includes deactivated codes", () => {
+    const rows = [validRow, deactivatedRow];
+
+    expect(removeDeactivatedDangerousRows(rows, true)).toEqual(rows);
+  });
+
+  it("returns an empty array for undefined input", () => {
+    expect(removeDeactivatedDangerousRows(undefined, false)).toEqual([]);
   });
 });
