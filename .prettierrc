@@ -6,9 +6,9 @@
   },
   "printWidth": 100,
   "tabWidth": 2,
-  "singleQuote": true,
+  "singleQuote": false,
   "editor.formatOnSave": true,
-  "semi": false,
+  "semi": true,
   "trailingComma": "none",
   "arrowParens": "avoid",
   "overrides": [
