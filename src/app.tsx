@@ -20,14 +20,7 @@ import { WasteType } from './utils/constants'
 import { buildYearOptions } from './utils/yearOptions'
 import { removeDeactivatedDangerousRows } from './utils/itemFilters'
 import { formatDateAndTime } from './utils/format'
-import {
-  getCoefficient,
-  getDumpInertSum,
-  getDumpSum,
-  getSum,
-  getWasteStreamCode,
-  roundNumber
-} from './utils/functions'
+import { getCoefficient, getDumpInertSum, getDumpSum, getSum, getWasteStreamCode, roundNumber } from './utils/functions'
 import { useData } from './utils/hooks'
 import {
   buttonsTitles,
@@ -288,7 +281,6 @@ const DocumentPdf = ({ data }: { data: WasteI }) => {
         sum={notDangerousSum}
         labels={notDangerousLabels}
       />
-      12
       <RenderWastePage
         title={formLabels?.tableDangerous}
         yearCof={dangerousSumYearDataCof}
