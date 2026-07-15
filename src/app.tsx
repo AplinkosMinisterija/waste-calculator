@@ -721,7 +721,6 @@ const WasteForm = () => {
               </SimpleContainer>
             </>
           )}
-          ´
         </InnerContainer>
         {values.year && (
           <ButtonContainer>
