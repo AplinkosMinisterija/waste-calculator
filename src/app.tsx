@@ -30,6 +30,7 @@ import {
   roundNumber,
 } from './utils/functions';
 import { useData } from './utils/hooks';
+import { getTs06CodesLabel } from './utils/TS-06-codes';
 import {
   buttonsTitles,
   dangerousLabels,
@@ -72,7 +73,15 @@ Font.register({
   ],
 });
 
-const RenderWastePage = ({ wastes, sum, labels, title, renderTitle, yearCof }: any) => {
+const RenderWastePage = ({
+  wastes,
+  sum,
+  labels,
+  title,
+  renderTitle,
+  yearCof,
+  includeDeactivatedCodes,
+}: any) => {
   return (
     <Page orientation="landscape" size="A4" style={styles.page}>
       {renderTitle && renderTitle}
@@ -95,7 +104,9 @@ const RenderWastePage = ({ wastes, sum, labels, title, renderTitle, yearCof }: a
           return (
             <View key={i} style={styles.tableRow}>
               <Text style={styles.cell}>{i + 1}</Text>
-              <Text style={styles.cell}>{getWasteStreamCode(row)}</Text>
+              <Text style={styles.cell}>
+                {getTs06CodesLabel(getWasteStreamCode(row), includeDeactivatedCodes)}
+              </Text>
               <Text style={styles.cell}>{row?.wasteCode?.id}</Text>
               <Text style={styles.cell}>{yearCof}</Text>
               <Text style={styles.cell}>{row?.quantity}</Text>
@@ -295,6 +306,7 @@ const DocumentPdf = ({ data }: { data: WasteI }) => {
         wastes={data?.dangerous}
         sum={dangerousSum}
         labels={dangerousLabels}
+        includeDeactivatedCodes={data?.includeDeactivatedCodes}
       />
       <RenderNotDangerousWastePage
         wastes={data.dumpNotDangerous}

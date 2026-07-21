@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { stream, waste } from '../../utils/data';
 import { getCoefficient, getSum, getWasteStreamCode } from '../../utils/functions';
 import { isAvailableForPeriod } from '../../utils/itemFilters';
+import { getTs06CodesLabel } from '../../utils/TS-06-codes';
 import { bottomLabels, buttonsTitles } from '../../utils/texts';
 import { validateWaste } from '../../utils/validation';
 import Button from '../buttons/Button';
@@ -41,7 +42,7 @@ const WasteContainer = ({
       return (
         <TableRow key={index + 'table'}>
           <Cell>{index + 1}</Cell>
-          <Cell>{getWasteStreamCode(value)}</Cell>
+          <Cell>{getTs06CodesLabel(getWasteStreamCode(value), includeDeactivatedCodes)}</Cell>
           <Cell>{value?.wasteCode?.id}</Cell>
           <Cell>{yearCoeffiCient}</Cell>
           <Cell>{value?.quantity}</Cell>
@@ -70,7 +71,7 @@ const WasteContainer = ({
         </TableRow>
       );
     });
-  }, [yearCoeffiCient, arrayHelperRef, values]);
+  }, [yearCoeffiCient, arrayHelperRef, values, includeDeactivatedCodes]);
 
   return (
     <SimpleContainer title={title}>
@@ -173,7 +174,9 @@ const WasteContainer = ({
                           value={values.streamCode}
                           error={errors?.streamCode}
                           options={streams}
-                          getOptionLabel={(option) => option.id}
+                          getOptionLabel={(option) =>
+                            getTs06CodesLabel(option.id, includeDeactivatedCodes)
+                          }
                           disabled={isWasteFormType}
                           name="streamCode"
                           onChange={(streamCode) => {
