@@ -1,5 +1,5 @@
-import { TS_06_DEACTIVATION_DATE, WasteType } from './constants';
-import { yearData } from './data';
+import {TS_06_DEACTIVATION_DATE, WasteType} from './constants';
+import {yearData} from './data';
 
 export interface YearOption {
   year: number;
@@ -14,8 +14,8 @@ const SPLIT_YEAR = new Date(TS_06_DEACTIVATION_DATE).getUTCFullYear();
 // Labels for the two halves of the split year. Day numbers bracket the cutoff:
 // the last available day and the first deactivated day.
 export const YEAR_PERIOD_LABELS = {
-  beforeCutoff: '2026 iki Lapkričio 8-os',
-  afterCutoff: '2026 po Lapkričio 9-os',
+  beforeCutoff: 'Iki 2026 lapkričio 8 d.',
+  afterCutoff: 'Nuo 2026 lapkričio 9 d.',
 };
 
 // Build the year dropdown options. Every year maps to a single option except the

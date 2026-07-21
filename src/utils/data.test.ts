@@ -23,6 +23,15 @@ describe('TS-06 requirements', () => {
     });
   });
 
+  it('applies the 0.01 R coefficient to every highlighted code', () => {
+    boldCodes.forEach((code) => {
+      const id = code.endsWith('*') ? code : `${code}*`;
+      const streamItem = stream.find((item) => item.id === `TS-06 (${id})`);
+
+      expect(streamItem?.R).toBe(0.01);
+    });
+  });
+
   it('has waste mappings for every highlighted code', () => {
     const normalize = (value: string) => value.replace(/\*/g, '');
 
