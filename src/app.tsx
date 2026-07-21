@@ -388,16 +388,18 @@ const WasteForm = () => {
     localStorage?.getItem('items') ? JSON.parse(localStorage?.getItem('items') as any) : {},
   );
 
-  const handleSubmit = async (data) => {
-    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(JSON.stringify(data))}`;
+  const handleDownloadJson = (data: WasteI) => {
+    const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(data))}`;
     const link = document.createElement('a');
     link.href = jsonString;
     link.download = 'duomenys.json';
-
     link.click();
+  };
 
+  const handleDownloadPdf = async (data: WasteI) => {
     const doc = <DocumentPdf data={data} />;
     const asPdf = pdf();
+
     asPdf.updateContainer(doc);
     const blob = await asPdf.toBlob();
     saveAs(blob, 'dokumentas.pdf');
@@ -724,7 +726,12 @@ const WasteForm = () => {
         </InnerContainer>
         {values.year && (
           <ButtonContainer>
-            <Button type="submit">{buttonsTitles.download}</Button>
+            <Button type="button" onClick={() => handleDownloadPdf(values)}>
+              {buttonsTitles.downloadPdf}
+            </Button>
+            <Button type="button" onClick={() => handleDownloadJson(values)}>
+              {buttonsTitles.downloadJson}
+            </Button>
           </ButtonContainer>
         )}
       </StyledForm>
@@ -733,7 +740,7 @@ const WasteForm = () => {
 
   return (
     <DefaultLayout>
-      <Formik enableReinitialize={false} initialValues={initialValues} onSubmit={handleSubmit}>
+      <Formik enableReinitialize={false} initialValues={initialValues} onSubmit={() => {}}>
         {({ values, setFieldValue, setValues }) => (
           <Form values={values} setFieldValue={setFieldValue} setValues={setValues} />
         )}

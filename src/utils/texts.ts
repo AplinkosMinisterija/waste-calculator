@@ -19,6 +19,8 @@ export const buttonsTitles = {
   add: 'Pridėti',
   total: 'Iš viso: ',
   download: 'Parsisiųsti',
+  downloadPdf: 'Parsisiųsti PDF',
+  downloadJson: 'Parsisiųsti JSON',
   clearAll: 'Išvalyti viską',
   or: 'arba',
   save: 'Išsaugoti',
