@@ -145,6 +145,9 @@ export const inputLabels = {
   nf2: 'Dydis pagal Tvarkos aprašo* 1 priedo 9 punktą',
 };
 export const bottomLabels = {
+  year:
+    'Įmonės, netvarkančios baterijų ir baterijų gamybos atliekų (srauto kodas TS-06), pildo vieną ' +
+    'prievolių įvykdymo užtikrinimo sumos apskaičiavimo formą, pasirinkdamos ją pagal formos pildymo datą.',
   yearCoeffiCient: 'skiltis užsipildo automatiškai, nurodžius formos pateikimo metus',
   totalSum: 'skiltis užsipildo automatiškai, užpildžius visus laukelius',
   coeffiCient: 'skiltis užsipildo automatiškai, užpildžius veiklos kodą ir srauto kodą',

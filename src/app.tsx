@@ -32,6 +32,7 @@ import {
 import { useData } from './utils/hooks';
 import { getTs06CodesLabel } from './utils/TS-06-codes';
 import {
+  bottomLabels,
   buttonsTitles,
   dangerousLabels,
   descriptions,
@@ -568,6 +569,7 @@ const WasteForm = () => {
               getOptionLabel={(option) => option?.label}
             />
           </YearFieldContainer>
+          <Description>{bottomLabels.year}</Description>
           <SimpleContainer>
             <div>
               Tvarkos aprašas* - Atliekas naudojančių ar šalinančių įmonių prievolių įvykdymo
